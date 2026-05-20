@@ -5,23 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>疯狂动物城数学乐园</title>
     <style>
-        :root {
-            --primary-color: var(--primary-color);
-            --secondary-color: #ffd93d;
-            --accent-color: #ff6b9d;
-            --success-color: #00b894;
-            --warning-color: #fdcb6e;
-            --danger-color: var(--danger-color);
-            --text-primary: #2d3436;
-            --text-secondary: #636e72;
-            --bg-warm: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
-            --bg-cool: linear-gradient(135deg, #a8e6cf 0%, #dcedc1 100%);
-            --bg-purple: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.1);
-            --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 15px 50px rgba(0, 0, 0, 0.3);
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -32,7 +15,7 @@
             font-family: 'Comic Sans MS', '微软雅黑', cursive, sans-serif;
             background: linear-gradient(135deg, #ff9a56 0%, #ffcd67 50%, #ff9a56 100%);
             background-size: 400% 400%;
-            animation: gradientShift 20s ease infinite;
+            animation: gradientShift 15s ease infinite;
             min-height: 100vh;
             padding: 20px;
             position: relative;
@@ -48,19 +31,19 @@
         .floating-animals {
             position: fixed;
             font-size: 3em;
-            opacity: 0.12;
+            opacity: 0.15;
             pointer-events: none;
             z-index: 0;
         }
 
-        .animal1 { top: 10%; left: 5%; animation: float 8s ease-in-out infinite; }
-        .animal2 { top: 20%; right: 10%; animation: float 10s ease-in-out infinite 1s; }
-        .animal3 { bottom: 30%; left: 8%; animation: float 9s ease-in-out infinite 2s; }
-        .animal4 { bottom: 15%; right: 5%; animation: float 11s ease-in-out infinite 0.5s; }
+        .animal1 { top: 10%; left: 5%; animation: float 6s ease-in-out infinite; }
+        .animal2 { top: 20%; right: 10%; animation: float 8s ease-in-out infinite 1s; }
+        .animal3 { bottom: 30%; left: 8%; animation: float 7s ease-in-out infinite 2s; }
+        .animal4 { bottom: 15%; right: 5%; animation: float 9s ease-in-out infinite 0.5s; }
 
         @keyframes float {
             0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(3deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
         }
 
         .container {
@@ -69,7 +52,7 @@
             background: rgba(255, 255, 255, 0.95);
             border-radius: 30px;
             padding: 30px;
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
             position: relative;
             z-index: 1;
             border: 5px solid #ff6b6b;
@@ -77,36 +60,41 @@
 
         h1 {
             text-align: center;
-            color: var(--primary-color);
+            color: #ff6b6b;
             font-size: 2.8em;
             margin-bottom: 15px;
             text-shadow: 3px 3px 0px #ffd93d, 5px 5px 10px rgba(0,0,0,0.2);
-            animation: titleBounce 2s ease-in-out infinite;
-        }
-
-        @keyframes titleBounce {
-            0%, 100% {
-                transform: translateY(0) scale(1);
-            }
-            50% {
-                transform: translateY(-8px) scale(1.02);
-            }
+            animation: bounce 2s ease-in-out infinite;
         }
 
         /* 徽章展示墙 */
         .badge-wall {
-            background: var(--bg-warm);
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
             border-radius: 20px;
             padding: 20px;
             margin-bottom: 25px;
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .badge-wall::before {
+            content: '🏆';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8em;
+            opacity: 0.05;
         }
 
         .badge-wall h3 {
             text-align: center;
-            color: var(--danger-color);
+            color: #d63031;
             font-size: 1.5em;
             margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
         }
 
         .badge-collection {
@@ -114,6 +102,8 @@
             justify-content: center;
             gap: 30px;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
         }
 
         .badge-group {
@@ -121,64 +111,38 @@
             background: white;
             padding: 15px 25px;
             border-radius: 15px;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
         }
 
         .badge-group:hover {
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: var(--shadow-md);
-        }
-
-        .badge-group::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .badge-group:hover::before {
-            opacity: 1;
+            transform: translateY(-5px);
         }
 
         .badge-icon {
             font-size: 3em;
             margin-bottom: 8px;
-            display: inline-block;
-            animation: badgeWiggle 2s ease-in-out infinite;
-        }
-
-        @keyframes badgeWiggle {
-            0%, 100% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
         }
 
         .badge-count {
             font-size: 1.8em;
             font-weight: bold;
-            color: var(--text-primary);
+            color: #2d3436;
         }
 
         .badge-label {
             font-size: 0.9em;
-            color: var(--text-secondary);
+            color: #636e72;
             margin-top: 5px;
         }
 
         /* 积分显示 */
         .points-display {
-            background: var(--bg-purple);
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
             border-radius: 15px;
             padding: 15px;
             margin-bottom: 25px;
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -197,26 +161,26 @@
         .points-value {
             font-size: 2em;
             font-weight: bold;
-            color: var(--danger-color);
+            color: #d63031;
         }
 
         .points-label {
             font-size: 1em;
-            color: var(--text-secondary);
+            color: #636e72;
             font-weight: bold;
         }
 
         .level-display {
-            background: var(--bg-cool);
+            background: linear-gradient(135deg, #a8e6cf 0%, #dcedc1 100%);
             padding: 10px 20px;
             border-radius: 15px;
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
 
         .level-text {
             font-size: 1.1em;
             font-weight: bold;
-            color: var(--text-primary);
+            color: #2d3436;
         }
 
         .xp-bar-container {
@@ -226,7 +190,7 @@
 
         .xp-label {
             font-size: 0.9em;
-            color: var(--text-primary);
+            color: #2d3436;
             margin-bottom: 5px;
             font-weight: bold;
         }
@@ -249,11 +213,11 @@
 
         /* 签到系统 */
         .daily-signin {
-            background: var(--bg-purple);
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
             border-radius: 20px;
             padding: 15px;
             margin-bottom: 25px;
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -291,16 +255,16 @@
         .signin-status {
             font-size: 1.1em;
             font-weight: bold;
-            color: var(--danger-color);
+            color: #d63031;
         }
 
         /* 宝箱系统 */
         .chest-reward {
-            background: var(--bg-warm);
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
             border-radius: 20px;
             padding: 20px;
             margin-top: 20px;
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             text-align: center;
             animation: chestBounce 0.6s ease;
         }
@@ -312,7 +276,7 @@
 
         .chest-title {
             font-size: 1.5em;
-            color: var(--danger-color);
+            color: #d63031;
             font-weight: bold;
             margin-bottom: 15px;
         }
@@ -360,7 +324,7 @@
         .chest-label {
             font-size: 1em;
             font-weight: bold;
-            color: var(--text-primary);
+            color: #2d3436;
             margin-top: 8px;
         }
 
@@ -422,7 +386,7 @@
         .reward-name {
             font-size: 2em;
             font-weight: bold;
-            color: var(--danger-color);
+            color: #d63031;
             margin: 20px 0;
         }
 
@@ -454,12 +418,12 @@
             border-radius: 20px;
             padding: 20px;
             margin-top: 20px;
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .cards-collection h3 {
             text-align: center;
-            color: var(--text-primary);
+            color: #2d3436;
             font-size: 1.5em;
             margin-bottom: 15px;
         }
@@ -475,7 +439,7 @@
             padding: 10px;
             border-radius: 15px;
             text-align: center;
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
             position: relative;
             transition: all 0.3s;
         }
@@ -505,7 +469,7 @@
         .collected-card .card-name {
             font-size: 0.9em;
             font-weight: bold;
-            color: var(--text-primary);
+            color: #2d3436;
         }
 
         .collected-card .card-count {
@@ -526,23 +490,23 @@
 
         .empty-cards {
             text-align: center;
-            color: var(--text-secondary);
+            color: #636e72;
             padding: 20px;
             font-size: 1.1em;
         }
 
         /* 每日任务系统 */
         .daily-tasks {
-            background: var(--bg-purple);
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
             border-radius: 20px;
             padding: 20px;
             margin-bottom: 25px;
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .daily-tasks h3 {
             text-align: center;
-            color: var(--danger-color);
+            color: #d63031;
             font-size: 1.5em;
             margin-bottom: 15px;
         }
@@ -558,7 +522,7 @@
             background: white;
             padding: 15px 20px;
             border-radius: 15px;
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
             min-width: 180px;
             position: relative;
@@ -580,7 +544,7 @@
         .task-title {
             font-size: 1em;
             font-weight: bold;
-            color: var(--text-primary);
+            color: #2d3436;
             margin-bottom: 5px;
         }
 
@@ -628,7 +592,7 @@
             border-radius: 20px;
             padding: 15px;
             margin-bottom: 25px;
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             text-align: center;
             display: none;
         }
@@ -639,7 +603,7 @@
         }
 
         @keyframes streakPulse {
-            0%, 100% { box-shadow: var(--shadow-md); }
+            0%, 100% { box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
             50% { box-shadow: 0 5px 25px rgba(255, 107, 157, 0.4); }
         }
 
@@ -878,14 +842,14 @@
         }
 
         .question-card {
-            background: var(--bg-warm);
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
             padding: 20px;
             border-radius: 20px;
             border: 4px solid #f39c12;
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .question-card::before {
@@ -917,7 +881,7 @@
 
         .question-card.wrong {
             background: linear-gradient(135deg, #ff7675 0%, #d63031 100%);
-            border-color: var(--danger-color);
+            border-color: #d63031;
             animation: wrongShake 0.6s ease;
         }
 
@@ -948,7 +912,7 @@
         .question-text {
             font-size: 1.5em;
             font-weight: bold;
-            color: var(--text-primary);
+            color: #2d3436;
             margin-bottom: 15px;
             text-align: center;
         }
@@ -1074,6 +1038,18 @@
             transform: translateY(-1px);
         }
 
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .btn:disabled:hover {
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
         .btn-primary {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -1104,7 +1080,7 @@
             display: none;
             margin-top: 30px;
             padding: 30px;
-            background: var(--bg-cool);
+            background: linear-gradient(135deg, #a8e6cf 0%, #dcedc1 100%);
             border-radius: 25px;
             animation: resultSlideIn 0.6s ease;
             position: relative;
@@ -1132,7 +1108,7 @@
         .score-display {
             font-size: 3.5em;
             font-weight: bold;
-            color: var(--text-primary);
+            color: #2d3436;
             text-shadow: 3px 3px 0px rgba(255,255,255,0.5);
             margin-bottom: 15px;
         }
@@ -1199,15 +1175,15 @@
             background: linear-gradient(135deg, #cd7f32 0%, #a0522d 100%);
             color: white;
             border: 4px solid #8b4513;
-            animation: badgePop 0.8s ease, bronzeGlow 3s ease-in-out infinite;
+            animation: badgePop 0.8s ease, bronzeShine 3s ease-in-out infinite;
         }
 
-        @keyframes bronzeGlow {
+        @keyframes bronzeShine {
             0%, 100% {
-                box-shadow: 0 4px 15px rgba(205, 127, 50, 0.4);
+                box-shadow: 0 8px 20px rgba(139, 69, 19, 0.4);
             }
             50% {
-                box-shadow: 0 6px 25px rgba(205, 127, 50, 0.7);
+                box-shadow: 0 8px 30px rgba(205, 127, 50, 0.8);
             }
         }
 
@@ -1215,15 +1191,15 @@
             background: linear-gradient(135deg, #bdc3c7 0%, #95a5a6 100%);
             color: white;
             border: 4px solid #7f8c8d;
-            animation: badgePop 0.8s ease, silverGlow 3s ease-in-out infinite 0.5s;
+            animation: badgePop 0.8s ease, silverShine 3s ease-in-out infinite;
         }
 
-        @keyframes silverGlow {
+        @keyframes silverShine {
             0%, 100% {
-                box-shadow: 0 4px 15px rgba(189, 195, 199, 0.4);
+                box-shadow: 0 8px 20px rgba(127, 140, 141, 0.4);
             }
             50% {
-                box-shadow: 0 6px 25px rgba(189, 195, 199, 0.7);
+                box-shadow: 0 8px 30px rgba(189, 195, 199, 0.8);
             }
         }
 
@@ -1231,17 +1207,19 @@
             background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
             color: white;
             border: 4px solid #d4ac0d;
-            animation: badgePop 0.8s ease, goldGlow 2.5s ease-in-out infinite 1s;
+            animation: badgePop 0.8s ease, goldPulse 1.5s ease-in-out infinite;
         }
 
-        @keyframes goldGlow {
+        @keyframes goldPulse {
             0%, 100% {
-                box-shadow: 0 6px 20px rgba(241, 196, 15, 0.5);
+                box-shadow: 0 8px 20px rgba(241, 196, 15, 0.5),
+                            0 0 40px rgba(241, 196, 15, 0.3);
                 transform: scale(1);
             }
             50% {
-                box-shadow: 0 8px 30px rgba(241, 196, 15, 0.8);
-                transform: scale(1.03);
+                box-shadow: 0 8px 40px rgba(241, 196, 15, 0.8),
+                            0 0 60px rgba(241, 196, 15, 0.5);
+                transform: scale(1.02);
             }
         }
 
@@ -1249,26 +1227,28 @@
             background: linear-gradient(135deg, #74b9ff 0%, #0984e3 50%, #a29bfe 100%);
             color: white;
             border: 4px solid #0652DD;
-            animation: badgePop 0.8s ease, diamondGlow 2s ease-in-out infinite 1.5s, diamondSparkle 1.5s linear infinite;
+            animation: badgePop 0.8s ease, diamondGlow 2s ease-in-out infinite, diamondSparkle 1s linear infinite;
         }
 
         @keyframes diamondGlow {
             0%, 100% {
-                box-shadow: 0 6px 20px rgba(9, 132, 227, 0.5),
-                            0 0 30px rgba(162, 155, 254, 0.3);
+                box-shadow: 0 8px 20px rgba(9, 132, 227, 0.4),
+                            0 0 40px rgba(9, 132, 227, 0.2),
+                            0 0 60px rgba(162, 155, 254, 0.1);
             }
             50% {
-                box-shadow: 0 8px 35px rgba(9, 132, 227, 0.8),
-                            0 0 50px rgba(162, 155, 254, 0.5);
+                box-shadow: 0 8px 40px rgba(9, 132, 227, 0.8),
+                            0 0 60px rgba(9, 132, 227, 0.4),
+                            0 0 80px rgba(162, 155, 254, 0.3);
             }
         }
 
         @keyframes diamondSparkle {
             0%, 100% {
-                filter: brightness(1) saturate(1);
+                filter: brightness(1);
             }
             50% {
-                filter: brightness(1.15) saturate(1.2);
+                filter: brightness(1.2);
             }
         }
 
@@ -1279,7 +1259,7 @@
             padding: 20px;
             background: white;
             border-radius: 20px;
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .achievement-showcase.has-achievement {
@@ -1314,13 +1294,13 @@
         }
 
         .achievement-badge {
-            background: var(--bg-warm);
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
             padding: 12px 20px;
             border-radius: 15px;
             font-size: 1.1em;
             font-weight: bold;
-            color: var(--text-primary);
-            box-shadow: var(--shadow-sm);
+            color: #2d3436;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
             gap: 8px;
@@ -1337,17 +1317,42 @@
             font-size: 2.5em;
             margin: 15px 0;
             opacity: 0;
-            animation: fadeIn 0.8s ease 0.6s forwards;
+            animation: starsAppear 0.8s ease 0.6s forwards;
+        }
+
+        @keyframes starsAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.5);
+            }
+            60% {
+                transform: translateY(5px) scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         .encouragement {
             font-size: 1.5em;
-            color: var(--text-primary);
+            color: #2d3436;
             margin-top: 15px;
             font-weight: bold;
             text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
             opacity: 0;
-            animation: fadeIn 0.8s ease 0.9s forwards;
+            animation: encouragementAppear 0.8s ease 0.9s forwards;
+        }
+
+        @keyframes encouragementAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .stats {
@@ -1364,7 +1369,7 @@
             background: rgba(255, 255, 255, 0.8);
             border-radius: 20px;
             min-width: 130px;
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
         }
 
@@ -1379,7 +1384,7 @@
             background: rgba(255, 255, 255, 0.8);
             border-radius: 15px;
             margin-top: 15px;
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
 
         .best-score-label {
@@ -1402,7 +1407,7 @@
             background: rgba(255, 255, 255, 0.8);
             border-radius: 15px;
             margin-top: 10px;
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
 
         .streak-label {
@@ -1434,7 +1439,7 @@
 
         .stat-label {
             font-size: 1em;
-            color: var(--text-secondary);
+            color: #636e72;
             margin-top: 8px;
             font-weight: bold;
         }
@@ -1470,10 +1475,229 @@
         }
 
         .wrong-questions h3 {
-            color: var(--danger-color);
+            color: #d63031;
             margin-bottom: 20px;
             font-size: 1.8em;
             text-align: center;
+        }
+
+        /* 错题集面板 */
+        .wrong-collection-panel {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .wrong-collection-panel.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .wrong-collection-content {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: scaleIn 0.4s ease;
+            position: relative;
+        }
+
+        .wrong-collection-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #ff6b6b;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 2;
+        }
+
+        .wrong-collection-header h2 {
+            color: #d63031;
+            font-size: 1.8em;
+            margin: 0;
+        }
+
+        .wrong-collection-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-close {
+            background: #dfe6e9;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.3em;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-close:hover {
+            background: #d63031;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .btn-clear-collection {
+            background: linear-gradient(135deg, #ff7675 0%, #d63031 100%);
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 12px;
+            font-size: 0.95em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-clear-collection:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(214, 48, 49, 0.4);
+        }
+
+        .wrong-collection-stats {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .collection-stat {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: bold;
+            color: #2d3436;
+            font-size: 0.95em;
+        }
+
+        .collection-item {
+            background: #fff5f5;
+            padding: 18px;
+            margin-bottom: 12px;
+            border-radius: 15px;
+            border-left: 5px solid #d63031;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .collection-item:hover {
+            box-shadow: 0 3px 15px rgba(214, 48, 49, 0.15);
+        }
+
+        .collection-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .collection-question {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2d3436;
+        }
+
+        .collection-question.mixed {
+            color: #e84393;
+        }
+
+        .btn-delete-wrong {
+            background: none;
+            border: none;
+            font-size: 1.3em;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            opacity: 0.5;
+            flex-shrink: 0;
+        }
+
+        .btn-delete-wrong:hover {
+            background: #ff7675;
+            color: white;
+            opacity: 1;
+        }
+
+        .collection-details {
+            font-size: 1em;
+            color: #636e72;
+            line-height: 1.8;
+        }
+
+        .collection-wrong-count {
+            display: inline-block;
+            background: #d63031;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 10px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+
+        .collection-empty {
+            text-align: center;
+            padding: 50px 20px;
+            color: #636e72;
+        }
+
+        .collection-empty-icon {
+            font-size: 5em;
+            margin-bottom: 15px;
+        }
+
+        .collection-empty-text {
+            font-size: 1.2em;
+            color: #b2bec3;
+        }
+
+        /* 打印样式 */
+        @media print {
+            body {
+                background: white;
+            }
+            .buttons, .difficulty-selector, .history-section, .floating-animals,
+            .header-section, .badge-wall, .points-display, .daily-signin,
+            .daily-tasks, .winning-streak, .wrong-collection-panel,
+            .overlay, #fireworksCanvas, #retryWrongBtn,
+            #wrongCollectionBtn, #wrongSection, #resultSection, #wrongCollectionPanel,
+            #retryBanner {
+                display: none !important;
+            }
+            .container {
+                box-shadow: none;
+                border: none;
+                padding: 10px;
+            }
+            .questions-grid {
+                display: block;
+            }
+            .question-card {
+                break-inside: avoid;
+                margin-bottom: 10px;
+            }
         }
 
         .wrong-item {
@@ -1482,13 +1706,13 @@
             margin-bottom: 12px;
             border-radius: 15px;
             border-left: 6px solid #d63031;
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
 
         .wrong-question {
             font-size: 1.3em;
             font-weight: bold;
-            color: var(--text-primary);
+            color: #2d3436;
             margin-bottom: 10px;
         }
 
@@ -1497,7 +1721,7 @@
         }
 
         .wrong-answer {
-            color: var(--danger-color);
+            color: #d63031;
             margin-bottom: 8px;
             font-size: 1.1em;
         }
@@ -1509,7 +1733,7 @@
         }
 
         .explanation {
-            color: var(--text-secondary);
+            color: #636e72;
             background: #f5f5f5;
             padding: 12px;
             border-radius: 10px;
@@ -1553,7 +1777,7 @@
         }
 
         .history-date {
-            color: var(--text-secondary);
+            color: #636e72;
             font-size: 0.95em;
         }
 
@@ -1602,587 +1826,7 @@
             margin-right: 5px;
         }
 
-        /* 用户管理系统 */
-        .user-manager {
-            background: var(--bg-warm);
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 20px;
-            box-shadow: var(--shadow-md);
-        }
-
-        .current-user {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            justify-content: center;
-        }
-
-        .user-avatar {
-            font-size: 2.5em;
-            background: white;
-            padding: 10px;
-            border-radius: 50%;
-            box-shadow: var(--shadow-sm);
-            animation: avatarPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes avatarPulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: var(--shadow-sm);
-            }
-            50% {
-                transform: scale(1.08);
-                box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
-            }
-        }
-
-        .user-name {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: var(--danger-color);
-            flex: 1;
-            text-align: center;
-        }
-
-        .btn-switch-user {
-            background: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-size: 1em;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s;
-        }
-
-        .btn-switch-user:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-
-        /* 状态面板 */
-        .status-panel {
-            background: var(--bg-warm);
-            border-radius: 15px;
-            margin-bottom: 20px;
-            box-shadow: var(--shadow-md);
-            overflow: hidden;
-        }
-
-        .status-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            cursor: pointer;
-            user-select: none;
-            transition: background 0.3s;
-        }
-
-        .status-header:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .status-title {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: var(--danger-color);
-        }
-
-        .status-toggle {
-            font-size: 1em;
-            transition: transform 0.3s;
-        }
-
-        .status-toggle.open {
-            transform: rotate(180deg);
-        }
-
-        .status-toggle {
-            animation: toggleBounce 2s ease-in-out infinite;
-        }
-
-        @keyframes toggleBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-3px); }
-        }
-
-        .status-content {
-            padding: 0 20px 20px;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* 用户管理弹窗 */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal.active {
-            display: flex;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--warning-color);
-            padding-bottom: 15px;
-        }
-
-        .modal-header h3 {
-            color: var(--danger-color);
-            font-size: 1.5em;
-        }
-
-        .close-btn {
-            background: var(--text-secondary);
-            color: white;
-            border: none;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .close-btn:hover {
-            background: var(--danger-color);
-            transform: rotate(90deg);
-        }
-
-        .user-list {
-            margin-bottom: 25px;
-        }
-
-        .user-card {
-            background: var(--bg-warm);
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s;
-        }
-
-        .user-card:hover {
-            transform: translateX(5px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .user-card.active {
-            border: 3px solid var(--primary-color);
-            background: var(--bg-purple);
-        }
-
-        .user-card-avatar {
-            font-size: 2em;
-        }
-
-        .user-card-info {
-            flex: 1;
-        }
-
-        .user-card-name {
-            font-weight: bold;
-            font-size: 1.1em;
-            color: var(--text-primary);
-        }
-
-        .user-card-stats {
-            font-size: 0.9em;
-            color: var(--text-secondary);
-            margin-top: 5px;
-        }
-
-        .user-card-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .btn-user-action {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 8px;
-            font-size: 0.9em;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-switch {
-            background: var(--success-color);
-            color: white;
-        }
-
-        .btn-edit {
-            background: var(--warning-color);
-            color: var(--text-primary);
-        }
-
-        .btn-delete {
-            background: var(--danger-color);
-            color: white;
-        }
-
-        .add-user-section {
-            border-top: 2px solid var(--warning-color);
-            padding-top: 20px;
-        }
-
-        .add-user-section h4 {
-            color: var(--text-primary);
-            margin-bottom: 15px;
-        }
-
-        .add-user-section input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid var(--text-secondary);
-            border-radius: 10px;
-            font-size: 1em;
-            margin-bottom: 15px;
-            font-family: inherit;
-        }
-
-        .add-user-section input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-        }
-
-        .avatar-selector {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-
-        .avatar-option {
-            font-size: 2em;
-            padding: 8px;
-            border: 2px solid transparent;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: white;
-        }
-
-        .avatar-option:hover {
-            transform: scale(1.1);
-            box-shadow: var(--shadow-md);
-        }
-
-        .avatar-option.selected {
-            border-color: var(--primary-color);
-            background: var(--bg-purple);
-            transform: scale(1.15);
-        }
-
-        /* 通用阴影类 */
-        .shadow-sm {
-            box-shadow: var(--shadow-sm);
-        }
-
-        .shadow-md {
-            box-shadow: var(--shadow-md);
-        }
-
-        .shadow-lg {
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* 通用渐变类 */
-        .bg-warm {
-            background: var(--bg-warm);
-        }
-
-        .bg-cool {
-            background: var(--bg-cool);
-        }
-
-        .bg-purple {
-            background: var(--bg-purple);
-        }
-
-        /* 排行榜 */
-        .leaderboard-section {
-            background: var(--bg-warm);
-            border-radius: 20px;
-            padding: 25px;
-            margin-top: 25px;
-            box-shadow: var(--shadow-md);
-        }
-
-        .leaderboard-header {
-            margin-bottom: 20px;
-        }
-
-        .leaderboard-header h3 {
-            text-align: center;
-            color: var(--danger-color);
-            font-size: 1.8em;
-            margin-bottom: 15px;
-        }
-
-        .leaderboard-tabs {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .tab-btn {
-            background: white;
-            border: 2px solid var(--warning-color);
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-size: 1em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            color: var(--text-primary);
-        }
-
-        .tab-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .tab-btn.active {
-            background: var(--accent-color);
-            color: white;
-            border-color: var(--accent-color);
-        }
-
-        .leaderboard-content {
-            min-height: 200px;
-        }
-
-        .record-item {
-            background: white;
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s;
-        }
-
-        .record-item:hover {
-            transform: translateX(5px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .record-rank {
-            font-size: 1.5em;
-            font-weight: bold;
-            min-width: 40px;
-            text-align: center;
-        }
-
-        .record-rank.rank-1 {
-            color: #ffd700;
-            animation: goldShine 2s ease-in-out infinite;
-        }
-
-        .record-rank.rank-2 {
-            color: #c0c0c0;
-            animation: silverShine 2.5s ease-in-out infinite 0.3s;
-        }
-
-        .record-rank.rank-3 {
-            color: #cd7f32;
-            animation: bronzeShine 3s ease-in-out infinite 0.6s;
-        }
-
-        @keyframes goldShine {
-            0%, 100% {
-                transform: scale(1);
-                text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-            }
-            50% {
-                transform: scale(1.1);
-                text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-            }
-        }
-
-        @keyframes silverShine {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.08);
-            }
-        }
-
-        @keyframes bronzeShine {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.06);
-            }
-        }
-
-        .record-info {
-            flex: 1;
-        }
-
-        .record-date {
-            font-size: 0.9em;
-            color: var(--text-secondary);
-            margin-bottom: 5px;
-        }
-
-        .record-stats {
-            display: flex;
-            gap: 15px;
-            font-size: 1.1em;
-            font-weight: bold;
-        }
-
-        .record-score {
-            color: var(--primary-color);
-        }
-
-        .record-correct {
-            color: var(--success-color);
-        }
-
-        .record-time {
-            color: var(--accent-color);
-        }
-
-        .record-rank-badge {
-            font-size: 1.2em;
-            display: inline-block;
-            animation: badgeRotate 3s ease-in-out infinite;
-        }
-
-        @keyframes badgeRotate {
-            0%, 100% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
-        }
-
-        .no-records {
-            text-align: center;
-            padding: 40px;
-            color: var(--text-secondary);
-        }
-
-        .no-records p {
-            font-size: 1.1em;
-        }
-
         /* 响应式 */
-        @media print {
-            body {
-                background: white;
-                padding: 0;
-            }
-
-            .buttons, .difficulty-selector, .history-section, .user-manager,
-            .status-panel, .leaderboard-section, .floating-animals, .overlay {
-                display: none !important;
-            }
-
-            .container {
-                box-shadow: none;
-                border: none;
-                padding: 20px;
-                max-width: 100%;
-            }
-
-            h1 {
-                font-size: 2em;
-                margin-bottom: 20px;
-            }
-
-            .questions-grid {
-                grid-template-columns: repeat(2, 1fr);
-                page-break-inside: avoid;
-            }
-
-            .question-card {
-                break-inside: avoid;
-                page-break-inside: avoid;
-                border: 1px solid #ccc;
-                margin-bottom: 10px;
-            }
-
-            .question-card input {
-                border: 1px solid #999;
-                height: 30px;
-            }
-
-            .feedback-icon, .result-section, .challenge-mode {
-                display: none !important;
-            }
-
-            .print-header {
-                display: block !important;
-                page-break-after: always;
-                border-bottom: 2px solid #000;
-                padding-bottom: 20px;
-                margin-bottom: 30px;
-            }
-
-            .print-header h2 {
-                font-size: 1.8em;
-                margin-bottom: 15px;
-            }
-
-            .print-header p {
-                font-size: 1em;
-                margin: 5px 0;
-                line-height: 1.6;
-            }
-
-            @page {
-                size: A4;
-                margin: 2cm;
-            }
-        }
-
         @media (max-width: 600px) {
             h1 {
                 font-size: 2em;
@@ -2208,44 +1852,6 @@
                 font-size: 1.4em;
                 padding: 12px 20px;
             }
-
-            /* 移动端按钮优化 */
-            .btn {
-                min-height: 48px;
-                min-width: 48px;
-                font-size: 1em;
-                padding: 12px 20px;
-            }
-
-            .btn:active {
-                transform: scale(0.95);
-            }
-
-            .btn-switch-user {
-                min-height: 44px;
-                padding: 12px 18px;
-            }
-
-            .btn-switch-user:active {
-                transform: scale(0.95);
-            }
-
-            .user-card-actions .btn-user-action {
-                min-height: 40px;
-                padding: 10px 15px;
-            }
-
-            .status-header {
-                padding: 18px 15px;
-            }
-
-            .current-user {
-                flex-wrap: wrap;
-            }
-
-            .avatar-selector {
-                justify-content: center;
-            }
         }
     </style>
 </head>
@@ -2262,136 +1868,78 @@
     <div class="container">
         <h1>🎉 疯狂动物城数学乐园 🎉</h1>
 
-        <!-- 打印页眉（仅在打印时显示） -->
-        <div class="print-header" style="display: none;">
-            <h2>疯狂动物城数学乐园 - 练习报告</h2>
-            <p><strong>学生姓名：</strong><span id="printStudentName"></span></p>
-            <p><strong>练习日期：</strong><span id="printDate"></span></p>
-            <p><strong>难度等级：</strong><span id="printDifficulty"></span></p>
-            <p><strong>题目类型：</strong><span id="printQuestionType"></span></p>
-            <p><strong>完成时间：</strong><span id="printTime"></span></p>
-            <p><strong>得分：</strong><span id="printScore"></span></p>
-            <p><strong>段位：</strong><span id="printRank"></span></p>
-        </div>
-
-        <!-- 用户管理 -->
-        <div class="user-manager">
-            <div class="current-user">
-                <span class="user-avatar" id="currentUserAvatar">👤</span>
-                <span class="user-name" id="currentUserName">请选择用户</span>
-                <button class="btn-switch-user" onclick="showUserModal()">🔄 切换</button>
-            </div>
-        </div>
-
-        <!-- 我的状态面板（可折叠） -->
-        <div class="status-panel">
-            <div class="status-header" onclick="toggleStatusPanel()">
-                <span class="status-title">📊 我的状态</span>
-                <span class="status-toggle" id="statusToggle">▼</span>
-            </div>
-            <div class="status-content" id="statusContent" style="display: none;">
-                <!-- 徽章展示墙 -->
-                <div class="badge-wall">
-                    <h3>🏆 今日徽章 🏆</h3>
-                    <div class="badge-collection">
-                        <div class="badge-group">
-                            <div class="badge-icon">🥉</div>
-                            <div class="badge-count" id="bronzeCount">0</div>
-                            <div class="badge-label">铜牌</div>
-                        </div>
-                        <div class="badge-group">
-                            <div class="badge-icon">🥈</div>
-                            <div class="badge-count" id="silverCount">0</div>
-                            <div class="badge-label">银牌</div>
-                        </div>
-                        <div class="badge-group">
-                            <div class="badge-icon">🥇</div>
-                            <div class="badge-count" id="goldCount">0</div>
-                            <div class="badge-label">金牌</div>
-                        </div>
-                        <div class="badge-group">
-                            <div class="badge-icon">💎</div>
-                            <div class="badge-count" id="diamondCount">0</div>
-                            <div class="badge-label">钻石</div>
-                        </div>
-                    </div>
+        <!-- 徽章展示墙 -->
+        <div class="badge-wall">
+            <h3>🏆 今日徽章 🏆</h3>
+            <div class="badge-collection">
+                <div class="badge-group">
+                    <div class="badge-icon">🥉</div>
+                    <div class="badge-count" id="bronzeCount">0</div>
+                    <div class="badge-label">铜牌</div>
                 </div>
-
-                <!-- 积分和等级显示 -->
-                <div class="points-display">
-                    <div class="points-info">
-                        <div class="points-icon">⭐</div>
-                        <div>
-                            <div class="points-value" id="pointsValue">0</div>
-                            <div class="points-label">我的积分</div>
-                        </div>
-                    </div>
-                    <div class="level-display">
-                        <div class="level-text">🎮 Lv.<span id="levelValue">1</span></div>
-                    </div>
-                    <div class="xp-bar-container">
-                        <div style="width: 100%;">
-                            <div class="xp-label">经验值：<span id="xpValue">0</span> / <span id="xpMax">100</span></div>
-                            <div class="xp-bar">
-                                <div class="xp-fill" id="xpFill"></div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="badge-group">
+                    <div class="badge-icon">🥈</div>
+                    <div class="badge-count" id="silverCount">0</div>
+                    <div class="badge-label">银牌</div>
                 </div>
-
-                <!-- 每日签到 -->
-                <div class="daily-signin">
-                    <div class="signin-info">
-                        <div style="font-size: 2em;">📅</div>
-                        <div>
-                            <div class="signin-status" id="signinStatus">今日已签到</div>
-                            <div style="font-size: 0.9em; color: var(--text-secondary);">连续签到：<span id="signinStreak">0</span> 天</div>
-                        </div>
-                    </div>
-                    <button class="signin-btn" id="signinBtn" onclick="dailySignIn()">✅ 签到</button>
+                <div class="badge-group">
+                    <div class="badge-icon">🥇</div>
+                    <div class="badge-count" id="goldCount">0</div>
+                    <div class="badge-label">金牌</div>
                 </div>
-
-                <!-- 每日任务 -->
-                <div class="daily-tasks">
-                    <h3>🎯 每日任务</h3>
-                    <div class="tasks-list" id="tasksList"></div>
-                </div>
-
-                <!-- 连胜奖励 -->
-                <div class="winning-streak" id="winningStreak">
-                    <div class="streak-title">🔥 连胜奖励 🔥</div>
-                    <div class="streak-count"><span class="streak-fire">🔥</span> <span id="winningStreakCount">0</span> <span class="streak-fire">🔥</span></div>
-                    <div class="streak-reward" id="streakReward">连续获得钻石解锁奖励！</div>
+                <div class="badge-group">
+                    <div class="badge-icon">💎</div>
+                    <div class="badge-count" id="diamondCount">0</div>
+                    <div class="badge-label">钻石</div>
                 </div>
             </div>
         </div>
 
-        <!-- 用户管理弹窗 -->
-        <div class="modal" id="userModal" style="display: none;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>👥 用户管理</h3>
-                    <button class="close-btn" onclick="closeUserModal()">✕</button>
-                </div>
-                <div class="user-list" id="userList">
-                    <!-- 动态生成用户列表 -->
-                </div>
-                <div class="add-user-section">
-                    <h4>添加新用户</h4>
-                    <input type="text" id="newUserName" placeholder="输入昵称">
-                    <div class="avatar-selector">
-                        <span class="avatar-option selected" data-avatar="🐱" onclick="selectAvatar(this)">🐱</span>
-                        <span class="avatar-option" data-avatar="🐶" onclick="selectAvatar(this)">🐶</span>
-                        <span class="avatar-option" data-avatar="🐰" onclick="selectAvatar(this)">🐰</span>
-                        <span class="avatar-option" data-avatar="🦊" onclick="selectAvatar(this)">🦊</span>
-                        <span class="avatar-option" data-avatar="🐼" onclick="selectAvatar(this)">🐼</span>
-                        <span class="avatar-option" data-avatar="🐨" onclick="selectAvatar(this)">🐨</span>
-                        <span class="avatar-option" data-avatar="🐯" onclick="selectAvatar(this)">🐯</span>
-                        <span class="avatar-option" data-avatar="🦁" onclick="selectAvatar(this)">🦁</span>
-                    </div>
-                    <button class="btn btn-primary" onclick="addNewUser()">➕ 添加</button>
+        <!-- 积分和等级显示 -->
+        <div class="points-display">
+            <div class="points-info">
+                <div class="points-icon">⭐</div>
+                <div>
+                    <div class="points-value" id="pointsValue">0</div>
+                    <div class="points-label">我的积分</div>
                 </div>
             </div>
+            <div class="level-display">
+                <div class="level-text">🎮 Lv.<span id="levelValue">1</span></div>
+            </div>
+            <div class="xp-bar-container">
+                <div style="width: 100%;">
+                    <div class="xp-label">经验值：<span id="xpValue">0</span> / <span id="xpMax">100</span></div>
+                    <div class="xp-bar">
+                        <div class="xp-fill" id="xpFill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 每日签到 -->
+        <div class="daily-signin">
+            <div class="signin-info">
+                <div style="font-size: 2em;">📅</div>
+                <div>
+                    <div class="signin-status" id="signinStatus">今日已签到</div>
+                    <div style="font-size: 0.9em; color: #636e72;">连续签到：<span id="signinStreak">0</span> 天</div>
+                </div>
+            </div>
+            <button class="signin-btn" id="signinBtn" onclick="dailySignIn()">✅ 签到</button>
+        </div>
+
+        <!-- 每日任务 -->
+        <div class="daily-tasks">
+            <h3>🎯 每日任务</h3>
+            <div class="tasks-list" id="tasksList"></div>
+        </div>
+
+        <!-- 连胜奖励 -->
+        <div class="winning-streak" id="winningStreak">
+            <div class="streak-title">🔥 连胜奖励 🔥</div>
+            <div class="streak-count"><span class="streak-fire">🔥</span> <span id="winningStreakCount">0</span> <span class="streak-fire">🔥</span></div>
+            <div class="streak-reward" id="streakReward">连续获得钻石解锁奖励！</div>
         </div>
 
         <div class="header-section">
@@ -2454,7 +2002,8 @@
             <button class="btn btn-challenge" id="challengeBtn" onclick="startChallenge()">⚡ 挑战模式</button>
             <button class="btn btn-primary" id="submitBtn" onclick="submitAnswers()">✅ 提交答案</button>
             <button class="btn btn-secondary" onclick="newQuestions()">🔄 新题目</button>
-            <button class="btn btn-info" id="retryWrongBtn" onclick="retryWrong()" style="display: none;">📝 重练错题</button>
+            <button class="btn btn-info" id="retryWrongBtn" onclick="retryWrong()" disabled>📝 重练错题</button>
+            <button class="btn btn-secondary" id="wrongCollectionBtn" onclick="openWrongCollection()" style="background: linear-gradient(135deg, #e17055 0%, #d63031 100%);">📖 错题集 <span id="wrongCollectionBadge" style="background: white; color: #d63031; padding: 2px 8px; border-radius: 50px; font-size: 0.75em; margin-left: 5px; display: none;">0</span></button>
             <button class="btn btn-success" onclick="window.print()">🖨️ 打印</button>
         </div>
 
@@ -2520,24 +2069,6 @@
             <div class="wrong-questions" id="wrongSection" style="display: none;">
                 <h3>❌ 错题集</h3>
                 <div id="wrongList"></div>
-            </div>
-        </div>
-
-        <!-- 个人排行榜 -->
-        <div class="leaderboard-section">
-            <div class="leaderboard-header">
-                <h3>🏆 我的排行榜</h3>
-                <div class="leaderboard-tabs">
-                    <button class="tab-btn active" data-tab="today" onclick="switchLeaderboardTab('today')">今日最佳</button>
-                    <button class="tab-btn" data-tab="week" onclick="switchLeaderboardTab('week')">本周最佳</button>
-                    <button class="tab-btn" data-tab="all" onclick="switchLeaderboardTab('all')">历史最佳</button>
-                </div>
-            </div>
-            <div class="leaderboard-content" id="leaderboardContent">
-                <!-- 显示当前用户的个人排行 -->
-                <div class="no-records">
-                    <p>还没有记录哦，快去练习吧！💪</p>
-                </div>
             </div>
         </div>
 
@@ -2755,458 +2286,20 @@
             }, 1500);
         }
 
-        // ========== 用户管理系统 ==========
-
-        let currentUserData = null;
-        let selectedAvatar = '🐱';
-
-        // 加载用户列表
-        function loadUsers() {
-            const data = localStorage.getItem('mathUsers');
-            return data ? JSON.parse(data) : { currentUserId: null, users: [] };
-        }
-
-        // 保存用户列表
-        function saveUsers(users) {
-            localStorage.setItem('mathUsers', JSON.stringify(users));
-        }
-
-        // 获取当前用户
-        function getCurrentUser() {
-            const usersData = loadUsers();
-            if (!usersData.currentUserId) return null;
-            return usersData.users.find(u => u.id === usersData.currentUserId) || null;
-        }
-
-        // 切换用户
-        function switchUser(userId) {
-            const usersData = loadUsers();
-            usersData.currentUserId = userId;
-            saveUsers(usersData);
-
-            // 重新加载用户数据
-            currentUserData = getCurrentUser();
-            updateCurrentUserDisplay();
-            loadUserData();
-
-            // 关闭弹窗
-            closeUserModal();
-        }
-
-        // 添加新用户
-        function addNewUser() {
-            const nameInput = document.getElementById('newUserName');
-            const name = nameInput.value.trim();
-
-            if (!name) {
-                alert('请输入用户昵称！');
-                return;
-            }
-
-            const usersData = loadUsers();
-            const newUser = {
-                id: 'user_' + Date.now(),
-                name: name,
-                avatar: selectedAvatar,
-                createdAt: new Date().toISOString(),
-                totalScore: 0,
-                level: 1,
-                practiceDays: 0,
-                points: 0,
-                xp: 0,
-                streak: 0
-            };
-
-            usersData.users.push(newUser);
-            usersData.currentUserId = newUser.id;
-            saveUsers(usersData);
-
-            // 初始化该用户的数据
-            const initialData = {
-                bronzeBadges: 0,
-                silverBadges: 0,
-                goldBadges: 0,
-                diamondBadges: 0,
-                points: 0,
-                level: 1,
-                xp: 0,
-                streak: 0,
-                bestScore: 0,
-                history: [],
-                badgeDate: new Date().toDateString(),
-                signinDate: null,
-                signinStreak: 0,
-                winningStreak: 0,
-                tasks: {},
-                cards: [],
-                records: {
-                    today: [],
-                    week: [],
-                    all: []
-                }
-            };
-            localStorage.setItem('mathUserData_' + newUser.id, JSON.stringify(initialData));
-
-            currentUserData = newUser;
-            updateCurrentUserDisplay();
-            loadUserData();
-            renderUserList();
-
-            // 清空输入
-            nameInput.value = '';
-            closeUserModal();
-        }
-
-        // 删除用户
-        function deleteUser(userId) {
-            if (!confirm('确定要删除这个用户吗？所有数据将被清除！')) return;
-
-            const usersData = loadUsers();
-            usersData.users = usersData.users.filter(u => u.id !== userId);
-
-            // 如果删除的是当前用户，切换到第一个用户
-            if (usersData.currentUserId === userId) {
-                usersData.currentUserId = usersData.users.length > 0 ? usersData.users[0].id : null;
-            }
-
-            // 删除用户数据
-            localStorage.removeItem('mathUserData_' + userId);
-
-            saveUsers(usersData);
-            currentUserData = getCurrentUser();
-            updateCurrentUserDisplay();
-            loadUserData();
-            renderUserList();
-        }
-
-        // 编辑用户
-        function editUser(userId) {
-            const usersData = loadUsers();
-            const user = usersData.users.find(u => u.id === userId);
-            if (!user) return;
-
-            const newName = prompt('请输入新的昵称：', user.name);
-            if (newName && newName.trim()) {
-                user.name = newName.trim();
-                saveUsers(usersData);
-                renderUserList();
-                updateCurrentUserDisplay();
-            }
-        }
-
-        // 显示用户管理弹窗
-        function showUserModal() {
-            document.getElementById('userModal').classList.add('active');
-            renderUserList();
-        }
-
-        // 关闭用户管理弹窗
-        function closeUserModal() {
-            document.getElementById('userModal').classList.remove('active');
-        }
-
-        // 选择头像
-        function selectAvatar(element) {
-            document.querySelectorAll('.avatar-option').forEach(el => el.classList.remove('selected'));
-            element.classList.add('selected');
-            selectedAvatar = element.dataset.avatar;
-        }
-
-        // 渲染用户列表
-        function renderUserList() {
-            const usersData = loadUsers();
-            const userList = document.getElementById('userList');
-
-            if (usersData.users.length === 0) {
-                userList.innerHTML = '<p style="text-align: center; color: var(--text-secondary); padding: 20px;">还没有用户，请添加第一个用户吧！</p>';
-                return;
-            }
-
-            userList.innerHTML = usersData.users.map(user => `
-                <div class="user-card ${user.id === usersData.currentUserId ? 'active' : ''}">
-                    <div class="user-card-avatar">${user.avatar}</div>
-                    <div class="user-card-info">
-                        <div class="user-card-name">${user.name}</div>
-                        <div class="user-card-stats">
-                            等级 ${user.level} · 积分 ${user.points} · 连续练习 ${user.practiceDays} 天
-                        </div>
-                    </div>
-                    <div class="user-card-actions">
-                        ${user.id !== usersData.currentUserId ?
-                            `<button class="btn-user-action btn-switch" onclick="switchUser('${user.id}')">切换</button>` :
-                            '<span style="color: var(--success-color); font-weight: bold;">当前</span>'
-                        }
-                        <button class="btn-user-action btn-edit" onclick="editUser('${user.id}')">编辑</button>
-                        <button class="btn-user-action btn-delete" onclick="deleteUser('${user.id}')">删除</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // 更新当前用户显示
-        function updateCurrentUserDisplay() {
-            const user = getCurrentUser();
-            const avatarEl = document.getElementById('currentUserAvatar');
-            const nameEl = document.getElementById('currentUserName');
-
-            if (user) {
-                avatarEl.textContent = user.avatar;
-                nameEl.textContent = user.name;
-            } else {
-                avatarEl.textContent = '👤';
-                nameEl.textContent = '请选择用户';
-            }
-        }
-
-        // 切换状态面板
-        function toggleStatusPanel() {
-            const content = document.getElementById('statusContent');
-            const toggle = document.getElementById('statusToggle');
-
-            if (content.style.display === 'none') {
-                content.style.display = 'block';
-                toggle.classList.add('open');
-            } else {
-                content.style.display = 'none';
-                toggle.classList.remove('open');
-            }
-        }
-
-        // 修改数据加载函数以支持多用户
-        const originalLoadUserData = window.loadUserData;
-        function loadUserData() {
-            const user = getCurrentUser();
-            if (!user) return {};
-
-            const key = 'mathUserData_' + user.id;
-            try {
-                return JSON.parse(localStorage.getItem(key) || '{}');
-            } catch (e) {
-                return {};
-            }
-        }
-
-        function saveUserData(data) {
-            const user = getCurrentUser();
-            if (!user) return;
-
-            const key = 'mathUserData_' + user.id;
-            localStorage.setItem(key, JSON.stringify(data));
-
-            // 更新用户统计
-            const usersData = loadUsers();
-            const userData = usersData.users.find(u => u.id === user.id);
-            if (userData) {
-                userData.points = data.points || 0;
-                userData.level = data.level || 1;
-                userData.xp = data.xp || 0;
-                userData.streak = data.streak || 0;
-                userData.practiceDays = data.streak || 0;
-                saveUsers(usersData);
-            }
-        }
-
-        // ========== 排行榜系统 ==========
-
-        let currentLeaderboardTab = 'today';
-
-        // 保存个人成绩
-        function savePersonalRecord(score, correct, time) {
-            const user = getCurrentUser();
-            if (!user) return;
-
-            const data = loadUserData();
-            if (!data.records) {
-                data.records = { today: [], week: [], all: [] };
-            }
-
-            const record = {
-                date: new Date().toISOString(),
-                score: score,
-                correct: correct,
-                time: time,
-                rank: getRankBadge(score)
-            };
-
-            // 添加到今日记录
-            const today = new Date().toDateString();
-            data.records.today = data.records.today.filter(r =>
-                new Date(r.date).toDateString() !== today
-            );
-            data.records.today.push(record);
-
-            // 更新本周记录(保留每天的最佳)
-            updateWeekRecords(data.records);
-
-            // 更新历史记录(保留前10)
-            data.records.all.push(record);
-            data.records.all.sort((a, b) => b.score - a.score);
-            data.records.all = data.records.all.slice(0, 10);
-
-            saveUserData(data);
-            updateLeaderboardDisplay();
-        }
-
-        // 更新本周记录
-        function updateWeekRecords(records) {
-            const weekData = {};
-            const now = new Date();
-            const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-
-            records.today.forEach(r => {
-                const date = new Date(r.date).toDateString();
-                if (!weekData[date] || r.score > weekData[date].score) {
-                    weekData[date] = r;
-                }
-            });
-
-            records.week = Object.values(weekData)
-                .filter(r => new Date(r.date) >= weekAgo)
-                .sort((a, b) => b.score - a.score)
-                .slice(0, 7);
-        }
-
-        // 切换排行榜标签
-        function switchLeaderboardTab(tab) {
-            currentLeaderboardTab = tab;
-
-            // 更新标签样式
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.dataset.tab === tab) {
-                    btn.classList.add('active');
-                }
-            });
-
-            renderLeaderboard();
-        }
-
-        // 渲染排行榜
-        function renderLeaderboard() {
-            const data = loadUserData();
-            const content = document.getElementById('leaderboardContent');
-
-            if (!data.records || !data.records[currentLeaderboardTab] || data.records[currentLeaderboardTab].length === 0) {
-                content.innerHTML = `
-                    <div class="no-records">
-                        <p>还没有${currentLeaderboardTab === 'today' ? '今日' : currentLeaderboardTab === 'week' ? '本周' : '历史'}记录哦，快去练习吧！💪</p>
-                    </div>
-                `;
-                return;
-            }
-
-            const records = data.records[currentLeaderboardTab];
-            content.innerHTML = records.map((record, index) => `
-                <div class="record-item">
-                    <div class="record-rank rank-${index + 1}">${index + 1}</div>
-                    <div class="record-info">
-                        <div class="record-date">${formatRecordDate(record.date)}</div>
-                        <div class="record-stats">
-                            <span class="record-score">${record.score}分</span>
-                            <span class="record-correct">✓${record.correct}</span>
-                            <span class="record-time">${record.time}</span>
-                        </div>
-                    </div>
-                    <div class="record-rank-badge">${record.rank}</div>
-                </div>
-            `).join('');
-        }
-
-        // 格式化记录日期
-        function formatRecordDate(dateStr) {
-            const date = new Date(dateStr);
-            const today = new Date();
-            const yesterday = new Date(today);
-            yesterday.setDate(yesterday.getDate() - 1);
-
-            if (date.toDateString() === today.toDateString()) {
-                return '今天 ' + date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
-            } else if (date.toDateString() === yesterday.toDateString()) {
-                return '昨天 ' + date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
-            } else {
-                return date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' }) +
-                       ' ' + date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
-            }
-        }
-
-        // 更新排行榜显示
-        function updateLeaderboardDisplay() {
-            renderLeaderboard();
-        }
-
-        // 初始化排行榜
-        function initLeaderboard() {
-            updateLeaderboardDisplay();
-        }
-
-        // ========== 打印功能优化 ==========
-
-        // 打印前准备
-        window.addEventListener('beforeprint', function() {
-            const user = getCurrentUser();
-            const data = loadUserData();
-
-            // 填充打印信息
-            document.getElementById('printStudentName').textContent = user ? user.name : '未设置';
-            document.getElementById('printDate').textContent = new Date().toLocaleDateString('zh-CN');
-            document.getElementById('printDifficulty').textContent =
-                document.getElementById('difficulty').options[document.getElementById('difficulty').selectedIndex].text;
-            document.getElementById('printQuestionType').textContent =
-                document.getElementById('questionType').options[document.getElementById('questionType').selectedIndex].text;
-
-            if (isSubmitted) {
-                document.getElementById('printTime').textContent = formatTime(seconds);
-                document.getElementById('printScore').textContent = document.getElementById('score').textContent;
-                const rankBadge = document.getElementById('rankBadge');
-                document.getElementById('printRank').textContent = rankBadge.style.display !== 'none' ? rankBadge.textContent : '未评定';
-            } else {
-                document.getElementById('printTime').textContent = '未完成';
-                document.getElementById('printScore').textContent = '-';
-                document.getElementById('printRank').textContent = '未评定';
-            }
-        });
-
-        // 打印后清理
-        window.addEventListener('afterprint', function() {
-            // 清理工作（如果需要）
-        });
-
-        // 优化打印按钮
-        function printPage() {
-            window.print();
-        }
-
-        // 替换原有的打印按钮
-        document.addEventListener('DOMContentLoaded', function() {
-            const printBtn = document.querySelector('.btn-success');
-            if (printBtn && printBtn.textContent.includes('打印')) {
-                printBtn.setAttribute('onclick', 'printPage()');
-            }
-        });
-
-        // ========== 初始化 ==========
+        // 初始化
         window.onload = function() {
-            // 初始化用户系统
-            currentUserData = getCurrentUser();
-            updateCurrentUserDisplay();
+            loadUserData();
 
-            // 如果没有用户，自动打开用户管理弹窗
-            if (!currentUserData) {
-                showUserModal();
-            } else {
-                loadUserData();
-
-                // 检查是否是新的一天，如果是则重置今日徽章
-                const data = loadUserData();
-                const today = new Date().toDateString();
-                if (data.badgeDate !== today) {
-                    data.badgeDate = today;
-                    data.bronzeBadges = 0;
-                    data.silverBadges = 0;
-                    data.goldBadges = 0;
-                    data.diamondBadges = 0;
-                    saveUserData(data);
-                }
+            // 检查是否是新的一天，如果是则重置今日徽章
+            const data = loadUserData();
+            const today = new Date().toDateString();
+            if (data.badgeDate !== today) {
+                data.badgeDate = today;
+                data.bronzeBadges = 0;
+                data.silverBadges = 0;
+                data.goldBadges = 0;
+                data.diamondBadges = 0;
+                saveUserData(data);
             }
 
             newQuestions();
@@ -3218,7 +2311,7 @@
             checkDailySignIn();
             loadCardsCollection();
             initDailyTasks();
-            initLeaderboard();
+            updateWrongCollectionBadge();
         };
 
         // 加载用户数据
@@ -3239,6 +2332,238 @@
             } catch (e) {
                 console.warn('localStorage不可用，使用内存存储');
                 window.mathUserDataMemory = data;
+            }
+        }
+
+        // 错题集持久化存储
+        function loadWrongCollection() {
+            try {
+                return JSON.parse(localStorage.getItem('mathWrongCollection') || '[]');
+            } catch (e) {
+                return window.mathWrongCollectionMemory || [];
+            }
+        }
+
+        function saveWrongCollection(collection) {
+            try {
+                localStorage.setItem('mathWrongCollection', JSON.stringify(collection));
+            } catch (e) {
+                window.mathWrongCollectionMemory = collection;
+            }
+        }
+
+        // 将错题加入持久化错题集
+        function addToWrongCollection(q) {
+            const collection = loadWrongCollection();
+
+            // 生成题目的唯一标识
+            const questionKey = q.isMixed
+                ? `${q.num1}${q.op1}${q.num2}${q.op2}${q.num3}`
+                : `${q.num1}${q.operator}${q.num2}`;
+
+            // 查找是否已存在相同题目
+            const existing = collection.find(item => {
+                const itemKey = item.isMixed
+                    ? `${item.num1}${item.op1}${item.num2}${item.op2}${item.num3}`
+                    : `${item.num1}${item.operator}${item.num2}`;
+                return itemKey === questionKey;
+            });
+
+            if (existing) {
+                // 已存在，增加错误次数
+                existing.wrongCount = (existing.wrongCount || 1) + 1;
+                existing.userAnswer = q.userAnswer; // 更新最近一次的错误答案
+                existing.lastWrongDate = new Date().toLocaleString('zh-CN');
+            } else {
+                // 新错题，加入集合
+                collection.push({
+                    num1: q.num1,
+                    num2: q.num2,
+                    num3: q.num3,
+                    operator: q.operator,
+                    op1: q.op1,
+                    op2: q.op2,
+                    answer: q.answer,
+                    isMixed: q.isMixed,
+                    userAnswer: q.userAnswer,
+                    wrongCount: 1,
+                    firstWrongDate: new Date().toLocaleString('zh-CN'),
+                    lastWrongDate: new Date().toLocaleString('zh-CN')
+                });
+            }
+
+            saveWrongCollection(collection);
+            updateWrongCollectionBadge();
+        }
+
+        // 答对题目后，从错题集中自动移除
+        function removeCorrectFromCollection(q) {
+            const collection = loadWrongCollection();
+            const questionKey = q.isMixed
+                ? `${q.num1}${q.op1}${q.num2}${q.op2}${q.num3}`
+                : `${q.num1}${q.operator}${q.num2}`;
+
+            const idx = collection.findIndex(item => {
+                const itemKey = item.isMixed
+                    ? `${item.num1}${item.op1}${item.num2}${item.op2}${item.num3}`
+                    : `${item.num1}${item.operator}${item.num2}`;
+                return itemKey === questionKey;
+            });
+
+            if (idx >= 0) {
+                collection.splice(idx, 1);
+                saveWrongCollection(collection);
+                updateWrongCollectionBadge();
+            }
+        }
+
+        // 从错题集中移除某题
+        function removeFromWrongCollection(index) {
+            const collection = loadWrongCollection();
+            if (index >= 0 && index < collection.length) {
+                collection.splice(index, 1);
+                saveWrongCollection(collection);
+            }
+            updateWrongCollectionBadge();
+        }
+
+        // 清空整个错题集
+        function clearWrongCollection() {
+            if (confirm('确定要清空所有错题吗？这个操作不可撤销哦！')) {
+                saveWrongCollection([]);
+                updateWrongCollectionBadge();
+                closeWrongCollection();
+            }
+        }
+
+        // 更新错题集按钮上的数字角标
+        function updateWrongCollectionBadge() {
+            const collection = loadWrongCollection();
+            const badge = document.getElementById('wrongCollectionBadge');
+            const clearBtn = document.getElementById('btnClearCollection');
+            const retryBtn = document.getElementById('retryWrongBtn');
+
+            if (collection.length > 0) {
+                badge.textContent = collection.length;
+                badge.style.display = 'inline-block';
+                if (clearBtn) clearBtn.style.display = 'inline-block';
+                if (retryBtn) {
+                    retryBtn.disabled = false;
+                    retryBtn.style.opacity = '1';
+                }
+            } else {
+                badge.style.display = 'none';
+                if (clearBtn) clearBtn.style.display = 'none';
+                if (retryBtn) {
+                    retryBtn.disabled = true;
+                    retryBtn.style.opacity = '0.5';
+                }
+            }
+        }
+
+        // 打开错题集面板
+        function openWrongCollection() {
+            const panel = document.getElementById('wrongCollectionPanel');
+            panel.classList.add('active');
+            renderWrongCollection();
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 关闭错题集面板
+        function closeWrongCollection() {
+            const panel = document.getElementById('wrongCollectionPanel');
+            panel.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // 点击面板外部关闭
+        document.addEventListener('click', function(e) {
+            const panel = document.getElementById('wrongCollectionPanel');
+            if (e.target === panel) {
+                closeWrongCollection();
+            }
+        });
+
+        // ESC键关闭
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const panel = document.getElementById('wrongCollectionPanel');
+                if (panel.classList.contains('active')) {
+                    closeWrongCollection();
+                }
+            }
+        });
+
+        // 渲染错题集内容
+        function renderWrongCollection() {
+            const collection = loadWrongCollection();
+            const listEl = document.getElementById('wrongCollectionList');
+            const statsEl = document.getElementById('wrongCollectionStats');
+            const clearBtn = document.getElementById('btnClearCollection');
+
+            // 统计
+            const totalWrong = collection.reduce((sum, item) => sum + (item.wrongCount || 1), 0);
+            statsEl.innerHTML = `
+                <div class="collection-stat">📝 错题总数：${collection.length} 题</div>
+                <div class="collection-stat">❌ 累计错误：${totalWrong} 次</div>
+                <div class="collection-stat">📅 最近更新：${collection.length > 0 ? collection.reduce((latest, item) => item.lastWrongDate > latest ? item.lastWrongDate : latest, '') : '暂无'}</div>
+            `;
+
+            if (clearBtn) {
+                clearBtn.style.display = collection.length > 0 ? 'inline-block' : 'none';
+            }
+
+            if (collection.length === 0) {
+                listEl.innerHTML = `
+                    <div class="collection-empty">
+                        <div class="collection-empty-icon">🎉</div>
+                        <div class="collection-empty-text">太棒了！错题集是空的，继续保持！</div>
+                    </div>
+                `;
+                return;
+            }
+
+            listEl.innerHTML = '';
+            collection.forEach((q, index) => {
+                const item = document.createElement('div');
+                item.className = 'collection-item';
+
+                const questionText = q.isMixed
+                    ? `${q.num1} ${q.op1} ${q.num2} ${q.op2} ${q.num3} = ?`
+                    : `${q.num1} ${q.operator} ${q.num2} = ?`;
+
+                item.innerHTML = `
+                    <div class="collection-item-header">
+                        <div class="collection-question ${q.isMixed ? 'mixed' : ''}">
+                            ${questionText}
+                            <span class="collection-wrong-count">答错 ${q.wrongCount} 次</span>
+                        </div>
+                        <button class="btn-delete-wrong" onclick="event.stopPropagation(); removeFromWrongCollection(${index}); renderWrongCollection();" title="删除此题">🗑️</button>
+                    </div>
+                    <div class="collection-details">
+                        <div>✅ 正确答案：<strong>${q.answer}</strong></div>
+                        <div>❌ 你的答案：<strong>${q.userAnswer === null || q.userAnswer === undefined ? '未作答' : q.userAnswer}</strong></div>
+                        <div style="margin-top: 5px; font-size: 0.8em; color: #b2bec3;">
+                            首次记录：${q.firstWrongDate || '未知'} | 最近错误：${q.lastWrongDate || '未知'}
+                        </div>
+                    </div>
+                `;
+
+                listEl.appendChild(item);
+            });
+        }
+
+        // 生成错题集解析
+        function generateCollectionExplanation(q) {
+            if (q.isMixed) {
+                const tempResult = q.op1 === '+' ? q.num1 + q.num2 : q.num1 - q.num2;
+                let step1 = q.op1 === '+' ? `${q.num1} + ${q.num2} = ${q.num1 + q.num2}` : `${q.num1} - ${q.num2} = ${q.num1 - q.num2}`;
+                let step2 = q.op2 === '+' ? `${tempResult} + ${q.num3} = ${q.answer}` : `${tempResult} - ${q.num3} = ${q.answer}`;
+                return `分步计算：${step1}，然后 ${step2}`;
+            } else {
+                return q.operator === '+'
+                    ? `思路：${q.num1} + ${q.num2}，从${q.num1}往后数${q.num2}个数字`
+                    : `思路：${q.num1} - ${q.num2}，从${q.num1}往前数${q.num2}个数字`;
             }
         }
 
@@ -3844,7 +3169,11 @@
             updateProgress();
             document.getElementById('submitBtn').disabled = false;
             document.getElementById('resultSection').style.display = 'none';
-            document.getElementById('retryWrongBtn').style.display = 'none';
+            document.getElementById('retryWrongBtn').style.opacity = '1';
+            updateWrongCollectionBadge();
+            // 移除重练横幅
+            const oldBanner = document.getElementById('retryBanner');
+            if (oldBanner) oldBanner.remove();
 
             playSound('click');
         }
@@ -4110,13 +3439,17 @@
                     createCelebration(card);
                     showAnimalCheer(card);
                     correctCount++;
+                    // 如果这道题之前在错题集中，答对后自动移除
+                    removeCorrectFromCollection(q);
                 } else {
-                    // 答错了 - 立即显示叉叉和音效
+                    // 答错了 - 立即显示叉叉和音效，并保存到错题集
                     q.isCorrect = false;
                     card.classList.add('wrong');
                     feedbackIcon.textContent = '❌';
                     playSound('wrong');
                     wrongQuestions.push({ ...q, index: index + 1 });
+                    // 自动加入持久化错题集
+                    addToWrongCollection({ ...q, userAnswer: userAnswer });
                 }
 
                 answeredCount++;
@@ -4153,10 +3486,14 @@
                         q.isCorrect = true;
                         card.classList.add('correct');
                         feedbackIcon.textContent = '✅';
+                        // 答对后从错题集移除
+                        removeCorrectFromCollection(q);
                     } else {
                         card.classList.add('wrong');
                         feedbackIcon.textContent = '❌';
                         wrongQuestions.push({ ...q, index: index + 1 });
+                        // 自动加入持久化错题集
+                        addToWrongCollection({ ...q, userAnswer: q.userAnswer });
                     }
 
                     input.classList.add('disabled');
@@ -4178,11 +3515,12 @@
             const score = correctCount * 5;
             showResults(score, correctCount);
             saveHistory(score, correctCount);
-            savePersonalRecord(score, correctCount, formatTime(seconds));
 
             if (wrongQuestions.length > 0) {
-                document.getElementById('retryWrongBtn').style.display = 'inline-block';
+                document.getElementById('retryWrongBtn').disabled = false;
+                document.getElementById('retryWrongBtn').style.opacity = '1';
             }
+            updateWrongCollectionBadge();
         }
 
         // 显示结果
@@ -4345,7 +3683,6 @@
                     const item = document.createElement('div');
                     item.className = 'wrong-item';
 
-                    const explanation = generateExplanation(q);
                     const questionText = q.isMixed ?
                         `第${q.index}题：${q.num1} ${q.op1} ${q.num2} ${q.op2} ${q.num3} =` :
                         `第${q.index}题：${q.num1} ${q.operator} ${q.num2} =`;
@@ -4354,7 +3691,6 @@
                         <div class="wrong-question ${q.isMixed ? 'mixed' : ''}">${questionText}</div>
                         <div class="wrong-answer">❌ 你的答案：${q.userAnswer === null || q.userAnswer === undefined ? '未作答' : q.userAnswer}</div>
                         <div class="correct-answer">✅ 正确答案：${q.answer}</div>
-                        <div class="explanation">💡 ${explanation}</div>
                     `;
 
                     wrongList.appendChild(item);
@@ -4390,9 +3726,15 @@
 
         // 重练错题
         function retryWrong() {
-            if (wrongQuestions.length === 0) return;
+            // 优先使用当前会话的错题，如果没有则使用持久化错题集
+            let sourceQuestions = wrongQuestions.length > 0 ? wrongQuestions : loadWrongCollection();
 
-            questions = wrongQuestions.map((q, i) => ({
+            if (sourceQuestions.length === 0) {
+                alert('🎉 太棒了！错题集是空的，没有需要重练的题目！');
+                return;
+            }
+
+            questions = sourceQuestions.map((q, i) => ({
                 num1: q.num1, num2: q.num2, num3: q.num3,
                 operator: q.operator, op1: q.op1, op2: q.op2,
                 answer: q.answer, isMixed: q.isMixed,
@@ -4400,7 +3742,8 @@
             }));
 
             wrongQuestions = [];
-            document.getElementById('retryWrongBtn').style.display = 'none';
+            document.getElementById('retryWrongBtn').disabled = true;
+            document.getElementById('retryWrongBtn').style.opacity = '0.5';
 
             isChallengeMode = false;
             document.getElementById('challengeMode').classList.remove('active');
@@ -4412,13 +3755,45 @@
             startTimer();
             isSubmitted = false;
             answeredCount = 0;
+            correctCount = 0;
             currentQuestionIndex = 0;
             updateProgress();
             document.getElementById('submitBtn').disabled = false;
             document.getElementById('resultSection').style.display = 'none';
 
+            // 显示错题重练提示
+            showRetryBanner(sourceQuestions.length);
+
             playSound('click');
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 显示错题重练提示横幅
+        function showRetryBanner(count) {
+            // 移除旧横幅
+            const oldBanner = document.getElementById('retryBanner');
+            if (oldBanner) oldBanner.remove();
+
+            const banner = document.createElement('div');
+            banner.id = 'retryBanner';
+            banner.style.cssText = `
+                background: linear-gradient(135deg, #e17055 0%, #d63031 100%);
+                color: white;
+                padding: 12px 25px;
+                border-radius: 15px;
+                margin-bottom: 15px;
+                text-align: center;
+                font-weight: bold;
+                font-size: 1.1em;
+                animation: slideInDown 0.5s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+            `;
+            banner.innerHTML = `📝 正在重练 <strong>${count}</strong> 道错题 — 做对后会自动从错题集中移除 ✨`;
+            const grid = document.getElementById('questionsGrid');
+            grid.parentNode.insertBefore(banner, grid);
         }
 
         // 计时器功能
@@ -4500,7 +3875,7 @@
                     item.innerHTML = `
                         <div>
                             <div class="history-date">${record.date}</div>
-                            <div style="font-size: 0.9em; color: var(--text-secondary);">
+                            <div style="font-size: 0.9em; color: #636e72;">
                                 ${difficultyMap[record.difficulty]} ${typeMap[record.type]} | 用时：${record.time}
                             </div>
                             <div class="history-badges">${badges}</div>
@@ -4528,6 +3903,21 @@
             }
         });
     </script>
+
+    <!-- 错题集面板 -->
+    <div class="wrong-collection-panel" id="wrongCollectionPanel">
+        <div class="wrong-collection-content">
+            <div class="wrong-collection-header">
+                <h2>📖 我的错题集</h2>
+                <div class="wrong-collection-actions">
+                    <button class="btn-clear-collection" id="btnClearCollection" onclick="clearWrongCollection()">🗑️ 清空全部</button>
+                    <button class="btn-close" onclick="closeWrongCollection()">✕</button>
+                </div>
+            </div>
+            <div class="wrong-collection-stats" id="wrongCollectionStats"></div>
+            <div id="wrongCollectionList"></div>
+        </div>
+    </div>
 
     <!-- 开箱动画覆盖层 -->
     <div class="overlay" id="overlay">
