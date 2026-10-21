@@ -945,6 +945,20 @@
             opacity: 0.7;
         }
 
+        .speak-btn {
+            background: none;
+            border: none;
+            font-size: 0.85em;
+            cursor: pointer;
+            margin-left: 8px;
+            vertical-align: middle;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+        .speak-btn:hover {
+            opacity: 1;
+        }
+
         .question-text {
             font-size: 1.5em;
             font-weight: bold;
@@ -2625,6 +2639,11 @@
                     <div class="sound-toggle">
                         <label for="soundEnabled">🔊 音效：</label>
                         <input type="checkbox" id="soundEnabled" checked>
+                    </div>
+
+                    <div class="sound-toggle">
+                        <label for="speechEnabled">🗣️ 读题：</label>
+                        <input type="checkbox" id="speechEnabled">
                     </div>
                 </div>
 
@@ -4450,6 +4469,57 @@
             };
         }
 
+        // ========== 语音读题 ==========
+        function numberToChinese(n) {
+            const digits = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+            if (n < 10) return digits[n];
+            if (n === 10) return '十';
+            if (n < 20) return '十' + digits[n % 10];
+            if (n < 100) {
+                const tens = Math.floor(n / 10);
+                const ones = n % 10;
+                return digits[tens] + '十' + (ones === 0 ? '' : digits[ones]);
+            }
+            if (n === 100) return '一百';
+            return String(n);
+        }
+
+        function operatorToChinese(op) {
+            const map = { '+': '加', '-': '减', '×': '乘', '÷': '除以' };
+            return map[op] || op;
+        }
+
+        function questionToSpeech(q) {
+            const num = numberToChinese;
+            const op = operatorToChinese;
+            let text;
+            if (q.isParen) {
+                text = q.parenPos === 'left'
+                    ? `括号 ${num(q.num1)} ${op(q.op1)} ${num(q.num2)} 括号 ${op(q.op2)} ${num(q.num3)}`
+                    : `${num(q.num1)} ${op(q.op1)} 括号 ${num(q.num2)} ${op(q.op2)} ${num(q.num3)} 括号`;
+            } else if (q.isMixed) {
+                text = `${num(q.num1)} ${op(q.op1)} ${num(q.num2)} ${op(q.op2)} ${num(q.num3)}`;
+            } else {
+                text = `${num(q.num1)} ${op(q.operator)} ${num(q.num2)}`;
+            }
+            return text + ' 等于几';
+        }
+
+        function isSpeechEnabled() {
+            const el = document.getElementById('speechEnabled');
+            return el && el.checked;
+        }
+
+        function speakQuestion(index) {
+            const q = questions[index];
+            if (!q || typeof speechSynthesis === 'undefined') return;
+            speechSynthesis.cancel();
+            const utter = new SpeechSynthesisUtterance(questionToSpeech(q));
+            utter.lang = 'zh-CN';
+            utter.rate = 0.85;
+            speechSynthesis.speak(utter);
+        }
+
         // 渲染题目
         function renderQuestions() {
             const grid = document.getElementById('questionsGrid');
@@ -4475,6 +4545,7 @@
                     <div class="feedback-icon" id="feedback-${index}"></div>
                     <div class="question-text ${q.isMixed ? 'mixed' : ''}">
                         <span class="q-index">${index + 1}.</span>${questionText}
+                        <button class="speak-btn" onclick="speakQuestion(${index})" title="听题">🔊</button>
                     </div>
                     <input type="number" class="answer-input" id="answer-${index}"
                            onkeypress="handleKeyPress(event, ${index})" onfocus="recordStartTime(${index})" onblur="checkAnswerOnBlur(${index})">
@@ -4483,11 +4554,12 @@
                 grid.appendChild(card);
             });
 
-            // 自动聚焦第一个输入框
+            // 自动聚焦第一个输入框，开启读题时自动朗读第一题
             setTimeout(() => {
                 const firstInput = document.getElementById('answer-0');
                 if (firstInput) firstInput.focus();
-            }, 100);
+                if (isSpeechEnabled()) speakQuestion(0);
+            }, 150);
         }
 
         // 记录开始答题时间
@@ -4596,7 +4668,10 @@
                 if (!questions[i].isAnswered) {
                     const nextInput = document.getElementById(`answer-${i}`);
                     if (nextInput) {
-                        setTimeout(() => nextInput.focus(), 300);
+                        setTimeout(() => {
+                            nextInput.focus();
+                            if (isSpeechEnabled()) speakQuestion(i);
+                        }, 300);
                     }
                     return;
                 }
@@ -5131,6 +5206,20 @@
         document.getElementById('questionType').addEventListener('change', confirmNewQuestions);
 
         document.getElementById('questionCount').addEventListener('change', confirmNewQuestions);
+
+        // 读题开关：开启时朗读当前未完成的题，关闭时停止朗读
+        document.getElementById('speechEnabled').addEventListener('change', function() {
+            if (this.checked) {
+                for (let i = 0; i < questions.length; i++) {
+                    if (!questions[i].isAnswered) {
+                        speakQuestion(i);
+                        break;
+                    }
+                }
+            } else if (typeof speechSynthesis !== 'undefined') {
+                speechSynthesis.cancel();
+            }
+        });
     </script>
 
     <!-- 开箱动画覆盖层 -->
