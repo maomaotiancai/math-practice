@@ -4251,18 +4251,24 @@
             const questionType = document.getElementById('questionType').value;
             const questionCount = getQuestionCount();
             questions = [];
-            const maxNum = difficulty === 'hard' ? 100 : 20;
 
             for (let i = 0; i < questionCount; i++) {
                 let question;
                 if (questionType === 'addsub') {
-                    question = generateQuestion(maxNum);
+                    // 小菜一碟=50以内，有点意思=100以内
+                    question = generateQuestion(difficulty === 'hard' ? 100 : 50);
                 } else if (questionType === 'muldiv') {
-                    question = generateMulDivQuestion(difficulty);
+                    // 小菜一碟=九九乘法表，有点意思=加减乘除混合
+                    question = difficulty === 'hard' ? generateMixedWithMulDiv() : generateMulDivQuestion();
                 } else {
-                    question = difficulty === 'hard'
-                        ? generateMixedWithMulDiv()
-                        : generateMixedQuestion(maxNum);
+                    // 混合运算：小菜一碟=纯加减连算+带括号，有点意思=加减乘除混合
+                    if (difficulty === 'hard') {
+                        question = generateMixedWithMulDiv();
+                    } else {
+                        question = Math.random() < 0.5
+                            ? generateMixedQuestion(20)
+                            : generateParenthesisQuestion(20);
+                    }
                 }
                 questions.push(question);
             }
@@ -4339,27 +4345,8 @@
             };
         }
 
-        // 生成乘除法题目（除法只出整除）
-        function generateMulDivQuestion(level) {
-            // 有点意思：更大的乘除（两位数 × 一位数，或对应整除）
-            if (level === 'hard') {
-                const big = Math.floor(Math.random() * 10) + 10;   // 10~19
-                const small = Math.floor(Math.random() * 8) + 2;   // 2~9
-                const isMul = Math.random() < 0.5;
-                return {
-                    num1: isMul ? big : big * small,
-                    num2: small,
-                    operator: isMul ? '×' : '÷',
-                    answer: isMul ? big * small : big,
-                    isMixed: false,
-                    isMulDiv: true,
-                    userAnswer: '',
-                    isAnswered: false,
-                    isCorrect: false
-                };
-            }
-
-            // 小菜一碟：九九乘法表范围内的乘除
+        // 生成乘除法题目（九九乘法表，除法只出整除）
+        function generateMulDivQuestion() {
             const a = Math.floor(Math.random() * 9) + 1;
             const b = Math.floor(Math.random() * 9) + 1;
             const isMul = Math.random() < 0.5;
@@ -4415,6 +4402,54 @@
             };
         }
 
+        // 生成带括号的纯加减题目（混合运算·小菜一碟）
+        function generateParenthesisQuestion(maxNum) {
+            const a = Math.floor(Math.random() * maxNum) + 1;
+            const b = Math.floor(Math.random() * maxNum) + 1;
+            const c = Math.floor(Math.random() * maxNum) + 1;
+            const form = Math.floor(Math.random() * 4);
+
+            // 四种形式，保证括号内和最终结果都不为负
+            let num1, num2, num3, op1, op2, answer, parenPos;
+            switch (form) {
+                case 0: // (a + b) - c
+                    if (a + b < c) return generateParenthesisQuestion(maxNum);
+                    num1 = a; num2 = b; num3 = c;
+                    op1 = '+'; op2 = '-';
+                    answer = a + b - c; parenPos = 'left';
+                    break;
+                case 1: // (a - b) + c
+                    if (a < b) return generateParenthesisQuestion(maxNum);
+                    num1 = a; num2 = b; num3 = c;
+                    op1 = '-'; op2 = '+';
+                    answer = a - b + c; parenPos = 'left';
+                    break;
+                case 2: // a + (b - c)
+                    if (b < c) return generateParenthesisQuestion(maxNum);
+                    num1 = a; num2 = b; num3 = c;
+                    op1 = '+'; op2 = '-';
+                    answer = a + b - c; parenPos = 'right';
+                    break;
+                default: // a - (b - c)
+                    if (b < c || a < b - c) return generateParenthesisQuestion(maxNum);
+                    num1 = a; num2 = b; num3 = c;
+                    op1 = '-'; op2 = '-';
+                    answer = a - b + c; parenPos = 'right';
+                    break;
+            }
+
+            return {
+                num1, num2, num3, op1, op2,
+                answer,
+                isMixed: true,
+                isParen: true,
+                parenPos,
+                userAnswer: '',
+                isAnswered: false,
+                isCorrect: false
+            };
+        }
+
         // 渲染题目
         function renderQuestions() {
             const grid = document.getElementById('questionsGrid');
@@ -4425,9 +4460,16 @@
                 card.className = 'question-card';
                 card.id = `question-${index}`;
 
-                let questionText = q.isMixed ?
-                    `${index + 1}. ${q.num1} ${q.op1} ${q.num2} ${q.op2} ${q.num3} =` :
-                    `${index + 1}. ${q.num1} ${q.operator} ${q.num2} =`;
+                let questionText;
+                if (q.isParen) {
+                    questionText = q.parenPos === 'left'
+                        ? `${index + 1}. (${q.num1} ${q.op1} ${q.num2}) ${q.op2} ${q.num3} =`
+                        : `${index + 1}. ${q.num1} ${q.op1} (${q.num2} ${q.op2} ${q.num3}) =`;
+                } else if (q.isMixed) {
+                    questionText = `${index + 1}. ${q.num1} ${q.op1} ${q.num2} ${q.op2} ${q.num3} =`;
+                } else {
+                    questionText = `${index + 1}. ${q.num1} ${q.operator} ${q.num2} =`;
+                }
 
                 card.innerHTML = `
                     <div class="question-number">${index + 1}</div>
@@ -4861,9 +4903,16 @@
                     item.className = 'wrong-item';
 
                     const explanation = generateExplanation(q);
-                    const questionText = q.isMixed ?
-                        `第${q.index}题：${q.num1} ${q.op1} ${q.num2} ${q.op2} ${q.num3} =` :
-                        `第${q.index}题：${q.num1} ${q.operator} ${q.num2} =`;
+                    let questionText;
+                    if (q.isParen) {
+                        questionText = q.parenPos === 'left'
+                            ? `第${q.index}题：(${q.num1} ${q.op1} ${q.num2}) ${q.op2} ${q.num3} =`
+                            : `第${q.index}题：${q.num1} ${q.op1} (${q.num2} ${q.op2} ${q.num3}) =`;
+                    } else if (q.isMixed) {
+                        questionText = `第${q.index}题：${q.num1} ${q.op1} ${q.num2} ${q.op2} ${q.num3} =`;
+                    } else {
+                        questionText = `第${q.index}题：${q.num1} ${q.operator} ${q.num2} =`;
+                    }
 
                     item.innerHTML = `
                         <div class="wrong-question ${q.isMixed ? 'mixed' : ''}">${questionText}</div>
@@ -4889,6 +4938,19 @@
 
         // 生成解析
         function generateExplanation(q) {
+            if (q.isParen) {
+                if (q.parenPos === 'left') {
+                    const inner = q.op1 === '+' ? q.num1 + q.num2 : q.num1 - q.num2;
+                    const step1 = `(${q.num1} ${q.op1} ${q.num2}) = ${inner}`;
+                    const step2 = `${inner} ${q.op2} ${q.num3} = ${q.answer}`;
+                    return `带括号解析（先算括号里）：<br>第一步：${step1}<br>第二步：${step2}`;
+                } else {
+                    const inner = q.op2 === '+' ? q.num2 + q.num3 : q.num2 - q.num3;
+                    const step1 = `(${q.num2} ${q.op2} ${q.num3}) = ${inner}`;
+                    const step2 = `${q.num1} ${q.op1} ${inner} = ${q.answer}`;
+                    return `带括号解析（先算括号里）：<br>第一步：${step1}<br>第二步：${step2}`;
+                }
+            }
             if (q.isMulDiv) {
                 if (q.isMixed) {
                     const baseText = `${q.num1} ${q.op1} ${q.num2} = ${q.base}`;
@@ -4923,6 +4985,7 @@
                 operator: q.operator, op1: q.op1, op2: q.op2,
                 answer: q.answer, isMixed: q.isMixed,
                 isMulDiv: q.isMulDiv, base: q.base,
+                isParen: q.isParen, parenPos: q.parenPos,
                 userAnswer: '', isAnswered: false, isCorrect: false
             }));
 
