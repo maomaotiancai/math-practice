@@ -2247,6 +2247,204 @@
                 justify-content: center;
             }
         }
+
+        /* ========== 主题切换按钮 ========== */
+        .theme-toggle {
+            background: linear-gradient(135deg, #8d6e63 0%, #5d4037 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ========== 恐龙世界主题 ========== */
+        body.dino-theme {
+            --primary-color: #1b5e20;
+            --danger-color: #bf360c;
+            --accent-color: #ef6c00;
+            --success-color: #2e7d32;
+            --warning-color: #f9a825;
+            --text-primary: #3e2723;
+            --text-secondary: #6d4c41;
+            --bg-warm: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            --bg-cool: linear-gradient(135deg, #fff8e1 0%, #ffe0b2 100%);
+            --bg-purple: linear-gradient(135deg, #f1f8e9 0%, #dcedc8 100%);
+            background: linear-gradient(135deg, #16301f 0%, #2e5d3a 50%, #16301f 100%);
+            background-size: 400% 400%;
+        }
+
+        body.dino-theme .container {
+            border-color: #8d6e63;
+            background: rgba(255, 253, 245, 0.97);
+        }
+
+        body.dino-theme h1 {
+            color: #2e7d32;
+            text-shadow: 3px 3px 0 #ffb300, 5px 5px 10px rgba(0, 0, 0, 0.25);
+        }
+
+        body.dino-theme .header-section {
+            background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 55%, #4e342e 100%);
+        }
+
+        body.dino-theme .header-section::before {
+            content: '🦖🦕🦖🦕';
+        }
+
+        body.dino-theme .difficulty-selector label,
+        body.dino-theme .type-selector label,
+        body.dino-theme .sound-toggle label {
+            color: #1b5e20;
+        }
+
+        body.dino-theme .difficulty-selector select,
+        body.dino-theme .type-selector select {
+            border-color: #2e7d32;
+        }
+
+        body.dino-theme .progress-fill {
+            background: linear-gradient(90deg, #2e7d32 0%, #9ccc65 100%);
+        }
+
+        body.dino-theme .progress-fill::after {
+            content: '🦖';
+        }
+
+        body.dino-theme .challenge-mode {
+            background: linear-gradient(135deg, #bf360c 0%, #6d4c41 100%);
+        }
+
+        body.dino-theme .winning-streak {
+            background: linear-gradient(135deg, #ef6c00 0%, #bf360c 100%);
+        }
+
+        body.dino-theme .signin-btn {
+            background: linear-gradient(135deg, #ef6c00 0%, #bf360c 100%);
+        }
+
+        body.dino-theme .task-item.completed {
+            background: linear-gradient(135deg, #9ccc65 0%, #2e7d32 100%);
+        }
+
+        body.dino-theme .task-reward {
+            color: #bf360c;
+        }
+
+        body.dino-theme .question-card {
+            border-color: #8d6e63;
+        }
+
+        body.dino-theme .question-card.correct {
+            border-color: #00b894;
+        }
+
+        body.dino-theme .question-card.wrong {
+            border-color: #bf360c;
+        }
+
+        body.dino-theme .question-text.mixed,
+        body.dino-theme .wrong-question.mixed {
+            color: #bf360c;
+        }
+
+        body.dino-theme .answer-input:focus {
+            border-color: #2e7d32;
+            box-shadow: 0 0 15px rgba(46, 125, 50, 0.4);
+        }
+
+        body.dino-theme .btn-primary {
+            background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+        }
+
+        body.dino-theme .btn-secondary {
+            background: linear-gradient(135deg, #ef6c00 0%, #bf360c 100%);
+        }
+
+        body.dino-theme .btn-info {
+            background: linear-gradient(135deg, #00897b 0%, #004d40 100%);
+        }
+
+        body.dino-theme .btn-challenge {
+            background: linear-gradient(135deg, #bf360c 0%, #6d4c41 100%);
+        }
+
+        body.dino-theme .collect-btn,
+        body.dino-theme .claim-btn {
+            background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+        }
+
+        body.dino-theme .cards-collection {
+            background: linear-gradient(135deg, #d7ccc8 0%, #bcaaa4 100%);
+        }
+
+        body.dino-theme .stat-value {
+            background: linear-gradient(135deg, #2e7d32 0%, #ef6c00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        body.dino-theme .best-score-label,
+        body.dino-theme .history-section h3,
+        body.dino-theme .history-score,
+        body.dino-theme .record-score {
+            color: #2e7d32;
+        }
+
+        body.dino-theme .achievement-badge {
+            background: var(--bg-warm);
+        }
+
+        body.dino-theme .achievement-title,
+        body.dino-theme .streak-label,
+        body.dino-theme .streak-number,
+        body.dino-theme .wrong-questions h3 {
+            color: #bf360c;
+        }
+
+        body.dino-theme .wrong-item {
+            border-left-color: #bf360c;
+        }
+
+        body.dino-theme .tab-btn.active {
+            background: #ef6c00;
+            border-color: #ef6c00;
+        }
+
+        body.dino-theme .theme-toggle {
+            background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+        }
+
+        body.dino-theme .user-card.active {
+            border-color: #2e7d32;
+        }
+
+        body.dino-theme .modal-header {
+            border-bottom-color: #f9a825;
+        }
+
+        body.dino-theme .modal-header h3,
+        body.dino-theme .user-name,
+        body.dino-theme .status-title,
+        body.dino-theme .badge-wall h3,
+        body.dino-theme .points-value,
+        body.dino-theme .signin-status,
+        body.dino-theme .leaderboard-header h3,
+        body.dino-theme .chest-title,
+        body.dino-theme .daily-tasks h3,
+        body.dino-theme .reward-name {
+            color: #bf360c;
+        }
     </style>
 </head>
 <body>
@@ -2280,6 +2478,7 @@
                 <span class="user-avatar" id="currentUserAvatar">👤</span>
                 <span class="user-name" id="currentUserName">请选择用户</span>
                 <button class="btn-switch-user" onclick="showUserModal()">🔄 切换</button>
+                <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🦖 恐龙世界</button>
             </div>
         </div>
 
@@ -2397,7 +2596,7 @@
         <div class="header-section">
             <div class="header-info">
                 <div class="settings-row">
-                    <div class="difficulty-selector">
+                    <div class="difficulty-selector" id="difficultySelector">
                         <label for="difficulty">难度：</label>
                         <select id="difficulty">
                             <option value="easy">🌱 简单（20以内）</option>
@@ -2411,6 +2610,24 @@
                         <select id="questionType">
                             <option value="simple" selected>➕ 简单运算</option>
                             <option value="mixed">🔢 混合运算</option>
+                            <option value="muldiv">✖️ 乘除法</option>
+                        </select>
+                    </div>
+
+                    <div class="type-selector" id="muldivLevelSelector" style="display: none;">
+                        <label for="muldivLevel">乘除难度：</label>
+                        <select id="muldivLevel">
+                            <option value="easy" selected>🌱 简单（九九乘法表）</option>
+                            <option value="hard">🔥 困难（乘除后再加减）</option>
+                        </select>
+                    </div>
+
+                    <div class="difficulty-selector">
+                        <label for="questionCount">题量：</label>
+                        <select id="questionCount">
+                            <option value="10">10 题</option>
+                            <option value="20" selected>20 题</option>
+                            <option value="30">30 题</option>
                         </select>
                     </div>
 
@@ -2562,17 +2779,208 @@
         let currentQuestionIndex = 0;
         let questionTimes = [];
 
-        // 动物鼓励语
-        const animalCheers = [
-            { animal: '🦊', text: '太棒了！' },
-            { animal: '🐰', text: '好厉害！' },
-            { animal: '🦁', text: '真聪明！' },
-            { animal: '🐨', text: '继续加油！' },
-            { animal: '🐗', text: '你真行！' },
-            { animal: '🐼', text: '优秀！' },
-            { animal: '🦊', text: '牛啊！' },
-            { animal: '🐰', text: '完美！' }
-        ];
+        // ========== 主题系统 ==========
+        const THEME_KEY = 'mathTheme';
+
+        const THEMES = {
+            zoo: {
+                id: 'zoo',
+                toggleLabel: '🦖 恐龙世界',
+                title: '疯狂动物城数学乐园',
+                h1: '🎉 疯狂动物城数学乐园 🎉',
+                printTitle: '疯狂动物城数学乐园 - 练习报告',
+                floating: ['🦊', '🐰', '🦁', '🐨'],
+                cardsTitle: '🎴 我的动物卡片',
+                cardsEmpty: '还没有卡片哦，快去开宝箱收集吧！🎁',
+                cheers: [
+                    { animal: '🦊', text: '太棒了！' },
+                    { animal: '🐰', text: '好厉害！' },
+                    { animal: '🦁', text: '真聪明！' },
+                    { animal: '🐨', text: '继续加油！' },
+                    { animal: '🐗', text: '你真行！' },
+                    { animal: '🐼', text: '优秀！' },
+                    { animal: '🦊', text: '牛啊！' },
+                    { animal: '🐰', text: '完美！' }
+                ],
+                cardPool: [
+                    { icon: '🦊', name: '朱迪', rarity: 1 },
+                    { icon: '🐰', name: '朱迪', rarity: 1 },
+                    { icon: '🦁', name: '狮子市长', rarity: 2 },
+                    { icon: '🐨', name: '树懒闪电', rarity: 1 },
+                    { icon: '🐗', name: 'Manchas', rarity: 2 },
+                    { icon: '🐼', name: '警官熊猫', rarity: 3 },
+                    { icon: '🦊', name: '尼克', rarity: 2 },
+                    { icon: '🐰', name: '警官朱迪', rarity: 3 },
+                    { icon: '⭐', name: '星星贴纸', rarity: 1 },
+                    { icon: '🌟', name: '闪亮贴纸', rarity: 1 },
+                    { icon: '✨', name: '魔法贴纸', rarity: 2 },
+                    { icon: '🎀', name: '花朵贴纸', rarity: 2 },
+                    { icon: '🏆', name: '奖杯', rarity: 3 }
+                ],
+                badgeLabels: { bronze: '铜牌', silver: '银牌', gold: '金牌', diamond: '钻石' },
+                rankText: { bronze: '🥉 铜牌', silver: '🥈 银牌', gold: '🥇 金牌', diamond: '💎 钻石' },
+                chestIcons: { wood: '📦', silver: '💎', gold: '👑' },
+                achievements: {
+                    firstDiamond: '💎 钻石初体验',
+                    threeDiamonds: '🔥 钻石达人',
+                    tenDiamonds: '🏆 数学之王',
+                    firstGold: '🥇 黄金新星',
+                    firstPractice: '🎯 开始之旅',
+                    fivePractices: '📚 勤奋好学',
+                    weekStreak: '🔥 周冠军'
+                },
+                encouragement: {
+                    diamond: '🎊 太厉害了！满分钻石！你是数学小天才！🦊✨',
+                    gold: '🎉 太棒了！金牌！只差一点点就满分了！🐰💪',
+                    silver: '😊 很棒！银牌！继续加油向金牌冲刺！🦁',
+                    bronze: '💪 继续努力！多练习就能升级到银牌！🐨'
+                }
+            },
+            dino: {
+                id: 'dino',
+                toggleLabel: '🦊 动物城',
+                title: '🦖 恐龙世界数学乐园',
+                h1: '🦖 恐龙世界数学乐园 🦕',
+                printTitle: '恐龙世界数学乐园 - 练习报告',
+                floating: ['🦖', '🦕', '🦎', '🐉'],
+                cardsTitle: '🎴 我的恐龙卡片',
+                cardsEmpty: '还没有恐龙卡片哦，快去开宝箱收集吧！🥚',
+                cheers: [
+                    { animal: '🦖', text: '太棒了！' },
+                    { animal: '🦕', text: '好厉害！' },
+                    { animal: '🦎', text: '真聪明！' },
+                    { animal: '🐢', text: '继续加油！' },
+                    { animal: '🐊', text: '你真行！' },
+                    { animal: '🦅', text: '优秀！' },
+                    { animal: '🦖', text: '牛啊！' },
+                    { animal: '🦕', text: '完美！' }
+                ],
+                cardPool: [
+                    { icon: '🥚', name: '恐龙蛋', rarity: 1 },
+                    { icon: '🦴', name: '恐龙化石', rarity: 1 },
+                    { icon: '🌋', name: '远古火山', rarity: 1 },
+                    { icon: '🌿', name: '侏罗纪蕨类', rarity: 1 },
+                    { icon: '🐊', name: '恐鳄', rarity: 1 },
+                    { icon: '🐢', name: '甲龙', rarity: 1 },
+                    { icon: '🦕', name: '腕龙', rarity: 2 },
+                    { icon: '🦎', name: '迅猛龙', rarity: 2 },
+                    { icon: '🐉', name: '双脊龙', rarity: 2 },
+                    { icon: '🦅', name: '翼龙', rarity: 2 },
+                    { icon: '🐍', name: '蛇颈龙', rarity: 2 },
+                    { icon: '🦖', name: '霸王龙', rarity: 3 },
+                    { icon: '💎', name: '远古琥珀', rarity: 3 }
+                ],
+                badgeLabels: { bronze: '小恐龙', silver: '恐龙骑士', gold: '恐龙勇士', diamond: '恐龙王者' },
+                rankText: { bronze: '🥉 小恐龙', silver: '🥈 恐龙骑士', gold: '🥇 恐龙勇士', diamond: '💎 恐龙王者' },
+                chestIcons: { wood: '🥚', silver: '🦴', gold: '🌋' },
+                achievements: {
+                    firstDiamond: '💎 恐龙王者初体验',
+                    threeDiamonds: '🔥 三连恐龙王者',
+                    tenDiamonds: '🏆 侏罗纪霸主',
+                    firstGold: '🥇 恐龙勇士',
+                    firstPractice: '🥚 恐龙蛋孵化',
+                    fivePractices: '📚 勤奋小恐龙',
+                    weekStreak: '🔥 七日恐龙王'
+                },
+                encouragement: {
+                    diamond: '🎊 太厉害了！满分恐龙王者！你是数学小天才！🦖✨',
+                    gold: '🎉 太棒了！恐龙勇士！只差一点点就满分了！🦕💪',
+                    silver: '😊 很棒！恐龙骑士！继续加油向恐龙勇士冲刺！🦎',
+                    bronze: '💪 继续努力！多练习就能成长为恐龙骑士！🦖'
+                }
+            }
+        };
+
+        let currentTheme = 'zoo';
+
+        // 用户头像在恐龙主题下的对应形象
+        const ANIMAL_TO_DINO = {
+            '🐱': '🦖', '🐶': '🦕', '🐰': '🦎', '🦊': '🐉',
+            '🐼': '🐢', '🐨': '🦅', '🐯': '🐊', '🦁': '🦖'
+        };
+
+        function getTheme() {
+            return THEMES[currentTheme] || THEMES.zoo;
+        }
+
+        function displayAvatar(avatar) {
+            if (currentTheme === 'dino') {
+                return ANIMAL_TO_DINO[avatar] || avatar;
+            }
+            return avatar;
+        }
+
+        function loadTheme() {
+            // 支持用 ?theme=dino / ?theme=zoo 直接打开指定主题
+            const urlTheme = new URLSearchParams(window.location.search).get('theme');
+            if (THEMES[urlTheme]) return urlTheme;
+            const saved = localStorage.getItem(THEME_KEY);
+            return THEMES[saved] ? saved : 'zoo';
+        }
+
+        function applyTheme(themeId) {
+            if (!THEMES[themeId]) themeId = 'zoo';
+            currentTheme = themeId;
+            const theme = THEMES[themeId];
+
+            document.body.classList.toggle('dino-theme', themeId === 'dino');
+            document.title = theme.title;
+
+            const h1 = document.querySelector('h1');
+            if (h1) h1.textContent = theme.h1;
+
+            const printTitle = document.querySelector('.print-header h2');
+            if (printTitle) printTitle.textContent = theme.printTitle;
+
+            document.querySelectorAll('.floating-animals').forEach((el, index) => {
+                el.textContent = theme.floating[index] || '';
+            });
+
+            const cardsTitle = document.querySelector('.cards-collection h3');
+            if (cardsTitle) cardsTitle.textContent = theme.cardsTitle;
+
+            const badgeOrder = ['bronze', 'silver', 'gold', 'diamond'];
+            document.querySelectorAll('.badge-label').forEach((el, index) => {
+                const key = badgeOrder[index];
+                if (key) el.textContent = theme.badgeLabels[key];
+            });
+
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) themeToggle.textContent = theme.toggleLabel;
+
+            document.querySelectorAll('.avatar-option').forEach(el => {
+                const animal = el.dataset.avatar;
+                el.textContent = displayAvatar(animal);
+            });
+
+            localStorage.setItem(THEME_KEY, themeId);
+
+            updateCurrentUserDisplay();
+            loadCardsCollection();
+
+            // 如果成绩已经显示，切换主题时同步更新段位名称和鼓励语
+            const resultSection = document.getElementById('resultSection');
+            const data = loadUserData();
+            if (resultSection && getComputedStyle(resultSection).display !== 'none' && data.lastRank && theme.rankText[data.lastRank]) {
+                const rankBadge = document.getElementById('rankBadge');
+                if (rankBadge) rankBadge.textContent = theme.rankText[data.lastRank];
+                const encouragement = document.getElementById('encouragement');
+                if (encouragement && theme.encouragement[data.lastRank]) {
+                    encouragement.textContent = theme.encouragement[data.lastRank];
+                }
+            }
+
+            // 历史记录里的段位名称也跟着主题切换
+            loadHistory();
+
+            if (document.getElementById('userModal').classList.contains('active')) {
+                renderUserList();
+            }
+        }
+
+        function toggleTheme() {
+            applyTheme(currentTheme === 'zoo' ? 'dino' : 'zoo');
+        }
 
         // 音效系统 - 升级版卡通音效
         function initAudio() {
@@ -2924,7 +3332,7 @@
 
             userList.innerHTML = usersData.users.map(user => `
                 <div class="user-card ${user.id === usersData.currentUserId ? 'active' : ''}">
-                    <div class="user-card-avatar">${user.avatar}</div>
+                    <div class="user-card-avatar">${displayAvatar(user.avatar)}</div>
                     <div class="user-card-info">
                         <div class="user-card-name">${user.name}</div>
                         <div class="user-card-stats">
@@ -2950,7 +3358,7 @@
             const nameEl = document.getElementById('currentUserName');
 
             if (user) {
-                avatarEl.textContent = user.avatar;
+                avatarEl.textContent = displayAvatar(user.avatar);
                 nameEl.textContent = user.name;
             } else {
                 avatarEl.textContent = '👤';
@@ -3009,6 +3417,14 @@
         // ========== 排行榜系统 ==========
 
         let currentLeaderboardTab = 'today';
+
+        // 根据分数返回奖牌图标（排行榜展示用）
+        function getRankBadge(score) {
+            if (score === 100) return '💎';
+            if (score >= 90) return '🥇';
+            if (score >= 80) return '🥈';
+            return '🥉';
+        }
 
         // 保存个人成绩
         function savePersonalRecord(score, correct, time) {
@@ -3149,10 +3565,16 @@
             // 填充打印信息
             document.getElementById('printStudentName').textContent = user ? user.name : '未设置';
             document.getElementById('printDate').textContent = new Date().toLocaleDateString('zh-CN');
-            document.getElementById('printDifficulty').textContent =
+            const typeSelect = document.getElementById('questionType');
+            let printTypeText = typeSelect.options[typeSelect.selectedIndex].text;
+            let printDifficultyText =
                 document.getElementById('difficulty').options[document.getElementById('difficulty').selectedIndex].text;
-            document.getElementById('printQuestionType').textContent =
-                document.getElementById('questionType').options[document.getElementById('questionType').selectedIndex].text;
+            if (typeSelect.value === 'muldiv') {
+                const levelSelect = document.getElementById('muldivLevel');
+                printDifficultyText = levelSelect.options[levelSelect.selectedIndex].text;
+            }
+            document.getElementById('printDifficulty').textContent = printDifficultyText;
+            document.getElementById('printQuestionType').textContent = printTypeText;
 
             if (isSubmitted) {
                 document.getElementById('printTime').textContent = formatTime(seconds);
@@ -3186,6 +3608,10 @@
 
         // ========== 初始化 ==========
         window.onload = function() {
+            // 应用上次选择的主题
+            applyTheme(loadTheme());
+            updateTypeSelectors();
+
             // 初始化用户系统
             currentUserData = getCurrentUser();
             updateCurrentUserDisplay();
@@ -3281,48 +3707,49 @@
             const data = loadUserData();
             const achievements = [];
             const history = loadHistoryData();
+            const achievementNames = getTheme().achievements;
 
             // 首次钻石
             if (rank === 'diamond' && !data.firstDiamond) {
-                achievements.push('💎 钻石初体验');
+                achievements.push(achievementNames.firstDiamond);
                 data.firstDiamond = true;
             }
 
             // 连续3次钻石
             const recentDiamonds = history.filter(h => h.rank === 'diamond').slice(0, 3);
             if (recentDiamonds.length === 3 && !data.threeDiamonds) {
-                achievements.push('🔥 钻石达人');
+                achievements.push(achievementNames.threeDiamonds);
                 data.threeDiamonds = true;
             }
 
             // 累计10次满分
             const diamondCount = history.filter(h => h.rank === 'diamond').length;
             if (diamondCount >= 10 && !data.tenDiamonds) {
-                achievements.push('🏆 数学之王');
+                achievements.push(achievementNames.tenDiamonds);
                 data.tenDiamonds = true;
             }
 
             // 首次黄金
             if (rank === 'gold' && !data.firstGold) {
-                achievements.push('🥇 黄金新星');
+                achievements.push(achievementNames.firstGold);
                 data.firstGold = true;
             }
 
             // 首次练习
             if (history.length === 1 && !data.firstPractice) {
-                achievements.push('🎯 开始之旅');
+                achievements.push(achievementNames.firstPractice);
                 data.firstPractice = true;
             }
 
             // 5次练习
             if (history.length >= 5 && !data.fivePractices) {
-                achievements.push('📚 勤奋好学');
+                achievements.push(achievementNames.fivePractices);
                 data.fivePractices = true;
             }
 
             // 连续7天练习
             if (data.streak >= 7 && !data.weekStreak) {
-                achievements.push('🔥 周冠军');
+                achievements.push(achievementNames.weekStreak);
                 data.weekStreak = true;
             }
 
@@ -3465,21 +3892,22 @@
             const chestContainer = document.getElementById('chestContainer');
             chestContainer.innerHTML = '';
 
-            let chestType, chestIcon;
+            let chestType;
             switch(rank) {
+                case 'bronze':
+                    chestType = 'wood';
+                    break;
                 case 'silver':
                     chestType = 'wood';
-                    chestIcon = '📦';
                     break;
                 case 'gold':
                     chestType = 'silver';
-                    chestIcon = '💎';
                     break;
                 case 'diamond':
                     chestType = 'gold';
-                    chestIcon = '👑';
                     break;
             }
+            const chestIcon = getTheme().chestIcons[chestType] || '📦';
 
             const chest = document.createElement('div');
             chest.className = `chest ${chestType}`;
@@ -3504,25 +3932,14 @@
 
         function generateReward(rank) {
             // 根据段位生成奖励
-            const cardPool = [
-                { icon: '🦊', name: '朱迪', rarity: 1 },
-                { icon: '🐰', name: '朱迪', rarity: 1 },
-                { icon: '🦁', name: '狮子市长', rarity: 2 },
-                { icon: '🐨', name: '树懒闪电', rarity: 1 },
-                { icon: '🐗', name: ' Manchas', rarity: 2 },
-                { icon: '🐼', name: '警官熊猫', rarity: 3 },
-                { icon: '🦊', name: '尼克', rarity: 2 },
-                { icon: '🐰', name: '警官朱迪', rarity: 3 },
-                { icon: '⭐', name: '星星贴纸', rarity: 1 },
-                { icon: '🌟', name: '闪亮贴纸', rarity: 1 },
-                { icon: '✨', name: '魔法贴纸', rarity: 2 },
-                { icon: '🎀', name: '花朵贴纸', rarity: 2 },
-                { icon: '🏆', name: '奖杯', rarity: 3 }
-            ];
+            const cardPool = getTheme().cardPool;
 
             // 根据段位提高稀有度概率
             let rarityWeights;
             switch(rank) {
+                case 'bronze':
+                    rarityWeights = [0.75, 0.2, 0.05];
+                    break;
                 case 'silver':
                     rarityWeights = [0.6, 0.3, 0.1]; // 60%普通，30%稀有，10%史诗
                     break;
@@ -3532,6 +3949,8 @@
                 case 'diamond':
                     rarityWeights = [0.2, 0.5, 0.3]; // 钻石更容易得稀有和史诗
                     break;
+                default:
+                    rarityWeights = [0.6, 0.3, 0.1];
             }
 
             const rarity = Math.random();
@@ -3569,33 +3988,43 @@
             loadCardsCollection();
         }
 
-        // 卡片收集系统
+        // 卡片收集系统（两套主题各自独立收藏）
+        function getThemeCards(data) {
+            if (!data.cardsByTheme) {
+                data.cardsByTheme = { zoo: data.cards || {}, dino: {} };
+            }
+            if (!data.cardsByTheme.zoo && data.cards) data.cardsByTheme.zoo = data.cards;
+            if (!data.cardsByTheme.dino) data.cardsByTheme.dino = {};
+            return data.cardsByTheme[currentTheme] || {};
+        }
+
         function saveCard(card) {
             const data = loadUserData();
-            if (!data.cards) data.cards = {};
+            const cards = getThemeCards(data);
 
-            if (!data.cards[card.icon]) {
-                data.cards[card.icon] = {
+            if (!cards[card.icon]) {
+                cards[card.icon] = {
                     name: card.name,
                     rarity: card.rarity,
                     count: 0
                 };
             }
 
-            data.cards[card.icon].count++;
+            cards[card.icon].count++;
             saveUserData(data);
         }
 
         function loadCardsCollection() {
             const data = loadUserData();
             const cardsGrid = document.getElementById('cardsGrid');
+            if (!cardsGrid) return;
             cardsGrid.innerHTML = '';
 
-            const cards = data.cards || {};
+            const cards = getThemeCards(data);
             const cardList = Object.entries(cards);
 
             if (cardList.length === 0) {
-                cardsGrid.innerHTML = '<div class="empty-cards">还没有卡片哦，快去开宝箱收集吧！🎁</div>';
+                cardsGrid.innerHTML = `<div class="empty-cards">${getTheme().cardsEmpty}</div>`;
                 return;
             }
 
@@ -3653,9 +4082,9 @@
                 {
                     id: 'task3',
                     icon: '⭐',
-                    title: '答对18题以上',
+                    title: '正确率达到 90%',
                     reward: '150积分',
-                    condition: (data) => data.lastCorrect >= 18
+                    condition: (data) => (data.lastCorrect || 0) / (data.lastTotal || 20) >= 0.9
                 }
             ];
 
@@ -3719,8 +4148,8 @@
             // 任务2：检查上次段位
             tasks.task2.completed = data.lastRank === 'gold' || data.lastRank === 'diamond';
 
-            // 任务3：检查答对题数
-            tasks.task3.completed = data.lastCorrect >= 18;
+            // 任务3：检查正确率
+            tasks.task3.completed = (data.lastCorrect || 0) / (data.lastTotal || 20) >= 0.9;
 
             data.dailyTasks = tasks;
             saveUserData(data);
@@ -3765,12 +4194,25 @@
             }
         }
 
+        // 计算挑战模式时间（20题基准：普通5分钟，困难8分钟；按题量等比缩放）
+        function getChallengeSeconds() {
+            const count = getQuestionCount();
+            const type = document.getElementById('questionType').value;
+            const difficulty = document.getElementById('difficulty').value;
+            const muldivLevel = getMuldivLevel();
+            const isHard = (type === 'muldiv' && muldivLevel === 'hard') ||
+                           (type !== 'muldiv' && difficulty === 'hard');
+            const baseSeconds = isHard ? 480 : 300;
+            return Math.round(baseSeconds * count / 20);
+        }
+
         // 启动挑战模式
         function startChallenge() {
             if (isChallengeMode) return;
 
             isChallengeMode = true;
-            countdownSeconds = 300;
+            countdownSeconds = getChallengeSeconds();
+            updateCountdownDisplay();
             document.getElementById('challengeMode').classList.add('active');
             document.getElementById('challengeBtn').style.display = 'none';
 
@@ -3814,12 +4256,26 @@
             }
         }
 
+        // 获取当前题量
+        function getQuestionCount() {
+            const el = document.getElementById('questionCount');
+            return el ? (parseInt(el.value, 10) || 20) : 20;
+        }
+
+        // 获取乘除法难度
+        function getMuldivLevel() {
+            const el = document.getElementById('muldivLevel');
+            return el ? el.value : 'easy';
+        }
+
         // 生成新题目
         function newQuestions() {
             const difficulty = document.getElementById('difficulty').value;
             const questionType = document.getElementById('questionType').value;
+            const questionCount = getQuestionCount();
+            const muldivLevel = getMuldivLevel();
             questions = [];
-            let maxNum;
+            let maxNum = 50;
 
             switch(difficulty) {
                 case 'easy': maxNum = 20; break;
@@ -3827,8 +4283,15 @@
                 case 'hard': maxNum = 100; break;
             }
 
-            for (let i = 0; i < 20; i++) {
-                let question = questionType === 'mixed' ? generateMixedQuestion(maxNum) : generateQuestion(maxNum);
+            for (let i = 0; i < questionCount; i++) {
+                let question;
+                if (questionType === 'mixed') {
+                    question = generateMixedQuestion(maxNum);
+                } else if (questionType === 'muldiv') {
+                    question = generateMulDivQuestion(muldivLevel);
+                } else {
+                    question = generateQuestion(maxNum);
+                }
                 questions.push(question);
             }
 
@@ -3898,6 +4361,55 @@
                 num1, num2, num3, op1, op2,
                 answer: finalAnswer,
                 isMixed: true,
+                userAnswer: '',
+                isAnswered: false,
+                isCorrect: false
+            };
+        }
+
+        // 生成乘除法题目（除法只出整除）
+        function generateMulDivQuestion(level) {
+            const a = Math.floor(Math.random() * 9) + 1;
+            const b = Math.floor(Math.random() * 9) + 1;
+            const isMul = Math.random() < 0.5;
+
+            // 乘法：a × b；除法：a×b ÷ a = b（保证整除）
+            const num1 = isMul ? a : a * b;
+            const num2 = isMul ? b : a;
+            const op1 = isMul ? '×' : '÷';
+            const base = isMul ? a * b : b;
+
+            // 简单：九九乘法表范围内的乘除
+            if (level !== 'hard') {
+                return {
+                    num1, num2,
+                    operator: op1,
+                    answer: base,
+                    isMixed: false,
+                    isMulDiv: true,
+                    userAnswer: '',
+                    isAnswered: false,
+                    isCorrect: false
+                };
+            }
+
+            // 困难：先算乘除，再加/减一个一位数或两位数
+            let c = Math.floor(Math.random() * 99) + 1;
+            const isAdd = Math.random() < 0.5;
+            if (!isAdd && c > base) {
+                c = Math.floor(Math.random() * base) + 1;
+            }
+            const op2 = isAdd ? '+' : '-';
+            const answer = isAdd ? base + c : base - c;
+
+            return {
+                num1, num2,
+                op1, op2, num3: c,
+                operator: op1,
+                base,
+                answer,
+                isMixed: true,
+                isMulDiv: true,
                 userAnswer: '',
                 isAnswered: false,
                 isCorrect: false
@@ -4015,7 +4527,8 @@
 
         // 显示动物鼓励语
         function showAnimalCheer(card) {
-            const cheer = animalCheers[Math.floor(Math.random() * animalCheers.length)];
+            const cheers = getTheme().cheers;
+            const cheer = cheers[Math.floor(Math.random() * cheers.length)];
             const cheerEl = document.createElement('div');
             cheerEl.className = 'animal-cheer';
             cheerEl.textContent = `${cheer.animal} ${cheer.text}`;
@@ -4129,8 +4642,9 @@
             const progressText = document.getElementById('progressText');
             const progressFill = document.getElementById('progressFill');
 
-            progressText.textContent = `${answeredCount}/20 题`;
-            const percentage = (answeredCount / 20) * 100;
+            const total = questions.length || getQuestionCount();
+            progressText.textContent = `${answeredCount}/${total} 题`;
+            const percentage = (answeredCount / total) * 100;
             progressFill.style.width = percentage + '%';
         }
 
@@ -4175,7 +4689,7 @@
             document.getElementById('submitBtn').disabled = true;
 
             // 计算得分并显示结果（音效在showResults中播放）
-            const score = correctCount * 5;
+            const score = questions.length > 0 ? Math.round(correctCount / questions.length * 100) : 0;
             showResults(score, correctCount);
             saveHistory(score, correctCount);
             savePersonalRecord(score, correctCount, formatTime(seconds));
@@ -4195,7 +4709,7 @@
 
                 document.getElementById('score').textContent = score;
                 document.getElementById('correctCount').textContent = correct;
-                document.getElementById('wrongCount').textContent = 20 - correct;
+                document.getElementById('wrongCount').textContent = questions.length - correct;
                 document.getElementById('timeSpent').textContent = formatTime(seconds);
 
                 // 计算平均答题时间
@@ -4207,38 +4721,39 @@
 
                 // 段位系统 - 根据分数确定段位
                 let rankText, rankClass, rank, stars, encouragement;
+                const theme = getTheme();
 
                 console.log('开始判断段位 - score:', score, 'score类型:', typeof score);
 
                 if (score === 100) {
                     rank = 'diamond';
-                    rankText = '💎 钻石';
+                    rankText = theme.rankText.diamond;
                     rankClass = 'rank-diamond';
                     stars = '⭐⭐⭐⭐⭐';
-                    encouragement = '🎊 太厉害了！满分钻石！你是数学小天才！🦊✨';
+                    encouragement = theme.encouragement.diamond;
                     // 满分放烟花和鲜花
                     setTimeout(() => startFireworks(), 500);
                     playSound('diamond');
                 } else if (score >= 90) {
                     rank = 'gold';
-                    rankText = '🥇 金牌';
+                    rankText = theme.rankText.gold;
                     rankClass = 'rank-gold';
                     stars = '⭐⭐⭐⭐';
-                    encouragement = '🎉 太棒了！金牌！只差一点点就满分了！🐰💪';
+                    encouragement = theme.encouragement.gold;
                     playSound('complete');
                 } else if (score >= 80) {
                     rank = 'silver';
-                    rankText = '🥈 银牌';
+                    rankText = theme.rankText.silver;
                     rankClass = 'rank-silver';
                     stars = '⭐⭐⭐';
-                    encouragement = '😊 很棒！银牌！继续加油向金牌冲刺！🦁';
+                    encouragement = theme.encouragement.silver;
                     playSound('complete');
                 } else {
                     rank = 'bronze';
-                    rankText = '🥉 铜牌';
+                    rankText = theme.rankText.bronze;
                     rankClass = 'rank-bronze';
                     stars = score >= 60 ? '⭐⭐' : '⭐';
-                    encouragement = '💪 继续努力！多练习就能升级到银牌！🐨';
+                    encouragement = theme.encouragement.bronze;
                     playSound('complete');
                 }
 
@@ -4285,6 +4800,7 @@
                 // 记录本次成绩（用于任务和连胜检查）
                 data.lastRank = rank;
                 data.lastCorrect = correct;
+                data.lastTotal = questions.length || getQuestionCount();
 
                 // 更新最佳成绩
                 const bestScore = Math.max(score, data.bestScore || 0);
@@ -4374,6 +4890,17 @@
 
         // 生成解析
         function generateExplanation(q) {
+            if (q.isMulDiv) {
+                if (q.isMixed) {
+                    const baseText = `${q.num1} ${q.op1} ${q.num2} = ${q.base}`;
+                    const step2 = `${q.base} ${q.op2} ${q.num3} = ${q.answer}`;
+                    return `乘除混合解析（先算乘除，再算加减）：<br>第一步：${baseText}<br>第二步：${step2}`;
+                }
+                if (q.operator === '×') {
+                    return `乘法解析：${q.num1} × ${q.num2} = ${q.answer}<br>思路：表示 ${q.num2} 个 ${q.num1} 相加`;
+                }
+                return `除法解析：${q.num1} ÷ ${q.num2} = ${q.answer}<br>思路：想 ${q.num2} × ${q.answer} = ${q.num1}`;
+            }
             if (q.isMixed) {
                 let step1 = q.op1 === '+' ? `${q.num1} + ${q.num2} = ${q.num1 + q.num2}` : `${q.num1} - ${q.num2} = ${q.num1 - q.num2}`;
                 const tempResult = q.op1 === '+' ? q.num1 + q.num2 : q.num1 - q.num2;
@@ -4396,6 +4923,7 @@
                 num1: q.num1, num2: q.num2, num3: q.num3,
                 operator: q.operator, op1: q.op1, op2: q.op2,
                 answer: q.answer, isMixed: q.isMixed,
+                isMulDiv: q.isMulDiv, base: q.base,
                 userAnswer: '', isAnswered: false, isCorrect: false
             }));
 
@@ -4464,6 +4992,7 @@
                 time: formatTime(seconds),
                 difficulty: difficulty,
                 type: questionType,
+                muldivLevel: questionType === 'muldiv' ? getMuldivLevel() : null,
                 isChallenge: isChallengeMode,
                 rank: rank
             };
@@ -4490,18 +5019,22 @@
                     item.className = 'history-item';
 
                     const difficultyMap = { 'easy': '🌱', 'medium': '🌿', 'hard': '🌳' };
-                    const typeMap = { 'simple': '➕ 简单', 'mixed': '🔢 混合' };
-                    const rankMap = { 'silver': '🥈 白银', 'gold': '🥇 黄金', 'diamond': '💎 钻石' };
+                    const typeMap = { 'simple': '➕ 简单', 'mixed': '🔢 混合', 'muldiv': '✖️ 乘除' };
+                    const rankMap = getTheme().rankText;
 
                     let badges = '';
                     if (record.isChallenge) badges += '<span class="history-badge challenge">⚡</span>';
                     badges += `<span class="history-badge ${record.rank}">${rankMap[record.rank]}</span>`;
 
+                    const typeLabel = record.type === 'muldiv'
+                        ? (record.muldivLevel === 'hard' ? '🔥 乘除困难' : '🌱 乘除简单')
+                        : typeMap[record.type];
+
                     item.innerHTML = `
                         <div>
                             <div class="history-date">${record.date}</div>
                             <div style="font-size: 0.9em; color: var(--text-secondary);">
-                                ${difficultyMap[record.difficulty]} ${typeMap[record.type]} | 用时：${record.time}
+                                ${record.type === 'muldiv' ? '' : difficultyMap[record.difficulty]} ${typeLabel} | 用时：${record.time}
                             </div>
                             <div class="history-badges">${badges}</div>
                         </div>
@@ -4515,18 +5048,40 @@
             }
         }
 
-        // 难度或题型改变时自动生成新题目
-        document.getElementById('difficulty').addEventListener('change', function() {
+        // 根据题型显示/隐藏对应的设置项
+        function updateTypeSelectors() {
+            const typeSelect = document.getElementById('questionType');
+            const isMulDiv = typeSelect && typeSelect.value === 'muldiv';
+            const muldivSelector = document.getElementById('muldivLevelSelector');
+            const difficultySelector = document.getElementById('difficultySelector');
+            if (muldivSelector) muldivSelector.style.display = isMulDiv ? 'flex' : 'none';
+            if (difficultySelector) difficultySelector.style.display = isMulDiv ? 'none' : 'flex';
+        }
+
+        // 改变设置时重新出题（挑战模式中则先退出挑战）
+        function confirmNewQuestions() {
             if (!isSubmitted || confirm('改变设置将生成新题目，确定吗？')) {
+                if (isChallengeMode) {
+                    isChallengeMode = false;
+                    stopCountdown();
+                    document.getElementById('challengeMode').classList.remove('active');
+                    document.getElementById('challengeBtn').style.display = 'inline-block';
+                }
                 newQuestions();
             }
-        });
+        }
+
+        // 难度或题型改变时自动生成新题目
+        document.getElementById('difficulty').addEventListener('change', confirmNewQuestions);
 
         document.getElementById('questionType').addEventListener('change', function() {
-            if (!isSubmitted || confirm('改变题型将生成新题目，确定吗？')) {
-                newQuestions();
-            }
+            updateTypeSelectors();
+            confirmNewQuestions();
         });
+
+        document.getElementById('muldivLevel').addEventListener('change', confirmNewQuestions);
+
+        document.getElementById('questionCount').addEventListener('change', confirmNewQuestions);
     </script>
 
     <!-- 开箱动画覆盖层 -->
