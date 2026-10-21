@@ -936,13 +936,13 @@
             80% { transform: translateX(10px); }
         }
 
-        .question-number {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 1.5em;
-            opacity: 0.3;
-            font-weight: bold;
+        .q-index {
+            font-size: 0.5em;
+            color: var(--text-secondary);
+            font-weight: normal;
+            margin-right: 6px;
+            vertical-align: middle;
+            opacity: 0.7;
         }
 
         .question-text {
@@ -4463,18 +4463,19 @@
                 let questionText;
                 if (q.isParen) {
                     questionText = q.parenPos === 'left'
-                        ? `${index + 1}. (${q.num1} ${q.op1} ${q.num2}) ${q.op2} ${q.num3} =`
-                        : `${index + 1}. ${q.num1} ${q.op1} (${q.num2} ${q.op2} ${q.num3}) =`;
+                        ? `(${q.num1} ${q.op1} ${q.num2}) ${q.op2} ${q.num3} =`
+                        : `${q.num1} ${q.op1} (${q.num2} ${q.op2} ${q.num3}) =`;
                 } else if (q.isMixed) {
-                    questionText = `${index + 1}. ${q.num1} ${q.op1} ${q.num2} ${q.op2} ${q.num3} =`;
+                    questionText = `${q.num1} ${q.op1} ${q.num2} ${q.op2} ${q.num3} =`;
                 } else {
-                    questionText = `${index + 1}. ${q.num1} ${q.operator} ${q.num2} =`;
+                    questionText = `${q.num1} ${q.operator} ${q.num2} =`;
                 }
 
                 card.innerHTML = `
-                    <div class="question-number">${index + 1}</div>
                     <div class="feedback-icon" id="feedback-${index}"></div>
-                    <div class="question-text ${q.isMixed ? 'mixed' : ''}">${questionText}</div>
+                    <div class="question-text ${q.isMixed ? 'mixed' : ''}">
+                        <span class="q-index">${index + 1}.</span>${questionText}
+                    </div>
                     <input type="number" class="answer-input" id="answer-${index}"
                            onkeypress="handleKeyPress(event, ${index})" onfocus="recordStartTime(${index})" onblur="checkAnswerOnBlur(${index})">
                 `;
