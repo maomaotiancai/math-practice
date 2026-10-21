@@ -2596,29 +2596,20 @@
         <div class="header-section">
             <div class="header-info">
                 <div class="settings-row">
-                    <div class="difficulty-selector" id="difficultySelector">
-                        <label for="difficulty">难度：</label>
-                        <select id="difficulty">
-                            <option value="easy">🌱 简单（20以内）</option>
-                            <option value="medium" selected>🌿 中等（50以内）</option>
-                            <option value="hard">🌳 困难（100以内）</option>
-                        </select>
-                    </div>
-
                     <div class="type-selector">
                         <label for="questionType">题型：</label>
                         <select id="questionType">
-                            <option value="simple" selected>➕ 简单运算</option>
-                            <option value="mixed">🔢 混合运算</option>
+                            <option value="addsub" selected>➕ 加减法</option>
                             <option value="muldiv">✖️ 乘除法</option>
+                            <option value="mixed">🔢 混合运算</option>
                         </select>
                     </div>
 
-                    <div class="type-selector" id="muldivLevelSelector" style="display: none;">
-                        <label for="muldivLevel">乘除难度：</label>
-                        <select id="muldivLevel">
-                            <option value="easy" selected>🌱 简单（九九乘法表）</option>
-                            <option value="hard">🔥 困难（乘除后再加减）</option>
+                    <div class="difficulty-selector">
+                        <label for="difficulty">难度：</label>
+                        <select id="difficulty">
+                            <option value="easy" selected>😋 小菜一碟</option>
+                            <option value="hard">🤔 有点意思</option>
                         </select>
                     </div>
 
@@ -3566,13 +3557,9 @@
             document.getElementById('printStudentName').textContent = user ? user.name : '未设置';
             document.getElementById('printDate').textContent = new Date().toLocaleDateString('zh-CN');
             const typeSelect = document.getElementById('questionType');
-            let printTypeText = typeSelect.options[typeSelect.selectedIndex].text;
-            let printDifficultyText =
+            const printTypeText = typeSelect.options[typeSelect.selectedIndex].text;
+            const printDifficultyText =
                 document.getElementById('difficulty').options[document.getElementById('difficulty').selectedIndex].text;
-            if (typeSelect.value === 'muldiv') {
-                const levelSelect = document.getElementById('muldivLevel');
-                printDifficultyText = levelSelect.options[levelSelect.selectedIndex].text;
-            }
             document.getElementById('printDifficulty').textContent = printDifficultyText;
             document.getElementById('printQuestionType').textContent = printTypeText;
 
@@ -3610,7 +3597,6 @@
         window.onload = function() {
             // 应用上次选择的主题
             applyTheme(loadTheme());
-            updateTypeSelectors();
 
             // 初始化用户系统
             currentUserData = getCurrentUser();
@@ -4197,11 +4183,8 @@
         // 计算挑战模式时间（20题基准：普通5分钟，困难8分钟；按题量等比缩放）
         function getChallengeSeconds() {
             const count = getQuestionCount();
-            const type = document.getElementById('questionType').value;
             const difficulty = document.getElementById('difficulty').value;
-            const muldivLevel = getMuldivLevel();
-            const isHard = (type === 'muldiv' && muldivLevel === 'hard') ||
-                           (type !== 'muldiv' && difficulty === 'hard');
+            const isHard = difficulty === 'hard';
             const baseSeconds = isHard ? 480 : 300;
             return Math.round(baseSeconds * count / 20);
         }
@@ -4262,35 +4245,24 @@
             return el ? (parseInt(el.value, 10) || 20) : 20;
         }
 
-        // 获取乘除法难度
-        function getMuldivLevel() {
-            const el = document.getElementById('muldivLevel');
-            return el ? el.value : 'easy';
-        }
-
         // 生成新题目
         function newQuestions() {
             const difficulty = document.getElementById('difficulty').value;
             const questionType = document.getElementById('questionType').value;
             const questionCount = getQuestionCount();
-            const muldivLevel = getMuldivLevel();
             questions = [];
-            let maxNum = 50;
-
-            switch(difficulty) {
-                case 'easy': maxNum = 20; break;
-                case 'medium': maxNum = 50; break;
-                case 'hard': maxNum = 100; break;
-            }
+            const maxNum = difficulty === 'hard' ? 100 : 20;
 
             for (let i = 0; i < questionCount; i++) {
                 let question;
-                if (questionType === 'mixed') {
-                    question = generateMixedQuestion(maxNum);
-                } else if (questionType === 'muldiv') {
-                    question = generateMulDivQuestion(muldivLevel);
-                } else {
+                if (questionType === 'addsub') {
                     question = generateQuestion(maxNum);
+                } else if (questionType === 'muldiv') {
+                    question = generateMulDivQuestion(difficulty);
+                } else {
+                    question = difficulty === 'hard'
+                        ? generateMixedWithMulDiv()
+                        : generateMixedQuestion(maxNum);
                 }
                 questions.push(question);
             }
@@ -4369,6 +4341,25 @@
 
         // 生成乘除法题目（除法只出整除）
         function generateMulDivQuestion(level) {
+            // 有点意思：更大的乘除（两位数 × 一位数，或对应整除）
+            if (level === 'hard') {
+                const big = Math.floor(Math.random() * 10) + 10;   // 10~19
+                const small = Math.floor(Math.random() * 8) + 2;   // 2~9
+                const isMul = Math.random() < 0.5;
+                return {
+                    num1: isMul ? big : big * small,
+                    num2: small,
+                    operator: isMul ? '×' : '÷',
+                    answer: isMul ? big * small : big,
+                    isMixed: false,
+                    isMulDiv: true,
+                    userAnswer: '',
+                    isAnswered: false,
+                    isCorrect: false
+                };
+            }
+
+            // 小菜一碟：九九乘法表范围内的乘除
             const a = Math.floor(Math.random() * 9) + 1;
             const b = Math.floor(Math.random() * 9) + 1;
             const isMul = Math.random() < 0.5;
@@ -4379,21 +4370,29 @@
             const op1 = isMul ? '×' : '÷';
             const base = isMul ? a * b : b;
 
-            // 简单：九九乘法表范围内的乘除
-            if (level !== 'hard') {
-                return {
-                    num1, num2,
-                    operator: op1,
-                    answer: base,
-                    isMixed: false,
-                    isMulDiv: true,
-                    userAnswer: '',
-                    isAnswered: false,
-                    isCorrect: false
-                };
-            }
+            return {
+                num1, num2,
+                operator: op1,
+                answer: base,
+                isMixed: false,
+                isMulDiv: true,
+                userAnswer: '',
+                isAnswered: false,
+                isCorrect: false
+            };
+        }
 
-            // 困难：先算乘除，再加/减一个一位数或两位数
+        // 生成加减乘除混合题目（混合运算·有点意思）
+        function generateMixedWithMulDiv() {
+            const a = Math.floor(Math.random() * 9) + 1;
+            const b = Math.floor(Math.random() * 9) + 1;
+            const isMul = Math.random() < 0.5;
+            const num1 = isMul ? a : a * b;
+            const num2 = isMul ? b : a;
+            const op1 = isMul ? '×' : '÷';
+            const base = isMul ? a * b : b;
+
+            // 再加减一个一位数或两位数
             let c = Math.floor(Math.random() * 99) + 1;
             const isAdd = Math.random() < 0.5;
             if (!isAdd && c > base) {
@@ -4992,7 +4991,6 @@
                 time: formatTime(seconds),
                 difficulty: difficulty,
                 type: questionType,
-                muldivLevel: questionType === 'muldiv' ? getMuldivLevel() : null,
                 isChallenge: isChallengeMode,
                 rank: rank
             };
@@ -5018,23 +5016,25 @@
                     const item = document.createElement('div');
                     item.className = 'history-item';
 
-                    const difficultyMap = { 'easy': '🌱', 'medium': '🌿', 'hard': '🌳' };
-                    const typeMap = { 'simple': '➕ 简单', 'mixed': '🔢 混合', 'muldiv': '✖️ 乘除' };
+                    const difficultyMap = { 'easy': '😋', 'hard': '🤔', 'medium': '🌿' };
+                    const typeMap = {
+                        'addsub': '➕ 加减法', 'simple': '➕ 加减法',
+                        'muldiv': '✖️ 乘除法',
+                        'mixed': '🔢 混合运算'
+                    };
                     const rankMap = getTheme().rankText;
 
                     let badges = '';
                     if (record.isChallenge) badges += '<span class="history-badge challenge">⚡</span>';
                     badges += `<span class="history-badge ${record.rank}">${rankMap[record.rank]}</span>`;
 
-                    const typeLabel = record.type === 'muldiv'
-                        ? (record.muldivLevel === 'hard' ? '🔥 乘除困难' : '🌱 乘除简单')
-                        : typeMap[record.type];
+                    const typeLabel = typeMap[record.type] || '➕ 加减法';
 
                     item.innerHTML = `
                         <div>
                             <div class="history-date">${record.date}</div>
                             <div style="font-size: 0.9em; color: var(--text-secondary);">
-                                ${record.type === 'muldiv' ? '' : difficultyMap[record.difficulty]} ${typeLabel} | 用时：${record.time}
+                                ${difficultyMap[record.difficulty] || ''} ${typeLabel} | 用时：${record.time}
                             </div>
                             <div class="history-badges">${badges}</div>
                         </div>
@@ -5046,16 +5046,6 @@
             } else {
                 historySection.style.display = 'none';
             }
-        }
-
-        // 根据题型显示/隐藏对应的设置项
-        function updateTypeSelectors() {
-            const typeSelect = document.getElementById('questionType');
-            const isMulDiv = typeSelect && typeSelect.value === 'muldiv';
-            const muldivSelector = document.getElementById('muldivLevelSelector');
-            const difficultySelector = document.getElementById('difficultySelector');
-            if (muldivSelector) muldivSelector.style.display = isMulDiv ? 'flex' : 'none';
-            if (difficultySelector) difficultySelector.style.display = isMulDiv ? 'none' : 'flex';
         }
 
         // 改变设置时重新出题（挑战模式中则先退出挑战）
@@ -5074,12 +5064,7 @@
         // 难度或题型改变时自动生成新题目
         document.getElementById('difficulty').addEventListener('change', confirmNewQuestions);
 
-        document.getElementById('questionType').addEventListener('change', function() {
-            updateTypeSelectors();
-            confirmNewQuestions();
-        });
-
-        document.getElementById('muldivLevel').addEventListener('change', confirmNewQuestions);
+        document.getElementById('questionType').addEventListener('change', confirmNewQuestions);
 
         document.getElementById('questionCount').addEventListener('change', confirmNewQuestions);
     </script>
